@@ -5,6 +5,8 @@ import { shorthands } from '@tamagui/shorthands'
 import { themes } from './themes'
 import { tokens } from './tokens'
 
+
+
 export const animations = createAnimations({
   lazy: 'ease-in 500ms',
   quick: 'ease-in 100ms',
@@ -12,7 +14,7 @@ export const animations = createAnimations({
 
 const fonts = {
   body: createFont({
-    family: `Helvetica`,
+    family: `EB Garamond`,
     size: {
       2: 12,
       3: 14,
@@ -106,7 +108,7 @@ type AppConfig = typeof config;
 declare module "tamagui" {
   // overrides TamaguiCustomConfig so that custom types
   // work everywhere `tamagui` is imported
-  interface TamaguiCustomConfig extends AppConfig {}
+  interface TamaguiCustomConfig extends AppConfig { }
 }
 
 export default config;
