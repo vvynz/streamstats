@@ -1,33 +1,12 @@
 {
   "compilerOptions": {
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "downlevelIteration": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "preserveSymlinks": true,
-    "jsx": "react-jsx",
-    "module": "system",
-    "moduleResolution": "node",
-    "noEmitOnError": false,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "preserveConstEnums": true,
-    "removeComments": false,
-    "skipLibCheck": true,
-    "sourceMap": false,
     "strictNullChecks": true,
-    "target": "es2020",
-    "types": ["node", "react"],
-    "lib": ["dom", "esnext"],
+    "noUncheckedIndexedAccess": true,
+    "paths": {
+      "app/*": ["./packages/app/*"],
+      "@my/ui/*": ["./packages/ui/*"]
+    }
   },
-  "exclude": ["**/test", "**/dist", "**/types", "**/__tests__"],
-  "typeAcquisition": {
-    "enable": true
-  },
+  "extends": "expo/tsconfig.base",
+  "exclude": ["**/node_modules", "**/dist", "**/types", "apps/next/out", "apps/next/.next", "apps/next/.tamagui"]
 }
