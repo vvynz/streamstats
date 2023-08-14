@@ -23,14 +23,14 @@ export function HomeScreen() {
   })
 
   return (
-    <YStack f={1} jc="flex-start" ai="baseline" p="$4" space>
+    <YStack f={1} p="$4" space>
       <YStack space="$4" maw={600}>
         <H1>Stream Stats</H1>
       </YStack>
 
-      <YStack>
+      <XStack jc="center" ai="center" space>
         <UserIdHeader />
-      </YStack>
+      </XStack>
 
       <XStack>
         <Button {...linkProps}>Go to User</Button>
