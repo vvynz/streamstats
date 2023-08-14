@@ -5,13 +5,17 @@ import {
   Paragraph,
   Separator,
   Sheet,
+  Text,
   useToastController,
   XStack,
   YStack,
+  ZStack,
 } from '@my/ui'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useLink } from 'solito/link'
+
+import { UserIdHeader } from '../user/id-header'
 
 export function HomeScreen() {
   const linkProps = useLink({
@@ -23,6 +27,14 @@ export function HomeScreen() {
       <YStack space="$4" maw={600}>
         <H1>Stream Stats</H1>
       </YStack>
+
+      <YStack>
+        <UserIdHeader />
+      </YStack>
+
+      <XStack>
+        <Button {...linkProps}>Go to User</Button>
+      </XStack>
 
       {/* <SheetDemo /> */}
     </YStack>
