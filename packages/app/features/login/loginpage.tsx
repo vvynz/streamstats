@@ -1,6 +1,6 @@
 import { Text } from '@my/ui'
 import React from 'react'
 
-export function Login() {
+export function LoginPage() {
   return <Text>Login Page</Text>
 }

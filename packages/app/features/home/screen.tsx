@@ -15,17 +15,24 @@ import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useLink } from 'solito/link'
 
+// Components
 import { UserIdHeader } from '../user/id-header'
+import { Link } from '../link/link'
 
 export function HomeScreen() {
   const linkProps = useLink({
-    href: '/user/nate',
+    href: '/user/RJ',
+  })
+
+  const loginProps = useLink({
+    href: '/login',
   })
 
   return (
     <YStack f={1} p="$4" space>
       <YStack space="$4" maw={600}>
         <H1>Stream Stats</H1>
+        <Button {...loginProps}>Login</Button>
       </YStack>
 
       <XStack jc="center" ai="center" space>
@@ -33,7 +40,8 @@ export function HomeScreen() {
       </XStack>
 
       <XStack>
-        <Button {...linkProps}>Go to User</Button>
+        {/* <Button {...linkProps}>Go to User</Button> */}
+        <Link href="/user/RJ" text="User" />
       </XStack>
 
       {/* <SheetDemo /> */}
