@@ -20,6 +20,8 @@ import { UserIdHeader } from '../user/id-header'
 import { Link } from '../link/link'
 
 export function HomeScreen() {
+  const [user, setUser] = useState('')
+
   const linkProps = useLink({
     href: '/user/RJ',
   })
@@ -32,17 +34,18 @@ export function HomeScreen() {
     <YStack f={1} p="$4" space>
       <XStack jc="space-between">
         <H1>Stream Stats</H1>
-        <Button {...loginProps}>Login</Button>
-        {/* <Link href={`/user/RJ`} text="Login" /> */}
+        <XStack>
+          {user ? (
+            <Button {...linkProps}>Go to User</Button>
+          ) : (
+            <Button {...loginProps}>Login</Button>
+          )}
+          {/* <Link href={`/user/RJ`} text="Login" /> */}
+        </XStack>
       </XStack>
 
       <XStack jc="center" ai="center" space>
         <UserIdHeader />
-      </XStack>
-
-      <XStack>
-        <Button {...linkProps}>Go to User</Button>
-        {/* <Link href="/user/RJ" text="User" /> */}
       </XStack>
 
       {/* <SheetDemo /> */}
