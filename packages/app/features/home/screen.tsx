@@ -30,18 +30,19 @@ export function HomeScreen() {
 
   return (
     <YStack f={1} p="$4" space>
-      <YStack space="$4" maw={600}>
+      <XStack jc="space-between">
         <H1>Stream Stats</H1>
         <Button {...loginProps}>Login</Button>
-      </YStack>
+        {/* <Link href={`/user/RJ`} text="Login" /> */}
+      </XStack>
 
       <XStack jc="center" ai="center" space>
         <UserIdHeader />
       </XStack>
 
       <XStack>
-        {/* <Button {...linkProps}>Go to User</Button> */}
-        <Link href="/user/RJ" text="User" />
+        <Button {...linkProps}>Go to User</Button>
+        {/* <Link href="/user/RJ" text="User" /> */}
       </XStack>
 
       {/* <SheetDemo /> */}
