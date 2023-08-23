@@ -17,6 +17,7 @@ import { useLink } from 'solito/link'
 
 // Components
 import { UserIdHeader } from '../user/id-header'
+import { Overview } from '../overview/overview'
 import { Link } from '../link/link'
 
 export function HomeScreen() {
@@ -47,6 +48,8 @@ export function HomeScreen() {
       <XStack jc="center" ai="center" space>
         <UserIdHeader />
       </XStack>
+
+      <Overview />
 
       {/* <SheetDemo /> */}
     </YStack>
