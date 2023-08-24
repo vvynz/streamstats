@@ -38,3 +38,15 @@ export function LoginPage() {
     </YStack>
   )
 }
+
+const clientId = '2b521e63e3ff470fadd0ad967629e3cf'
+const code = undefined
+
+if (!code) {
+  redirectToAuthCodeFlow(clientId)
+} else {
+  const accessToken = await getAccessToken(clientId, code)
+  const profile = await fetchProfile(accessToken)
+
+  console.log(profile)
+}
