@@ -1,21 +1,23 @@
 import { Avatar, H3, Paragraph, Separator, XStack, YStack } from '@my/ui'
 
+import { SongCard } from '../music/songcard'
+
 const playlist = [
   {
     image: '',
-    songName: 'Seven (ft. Latto)',
+    name: 'Seven (ft. Latto)',
   },
   {
     image: '',
-    songName: 'People',
+    name: 'People',
   },
   {
     image: '',
-    songName: 'Take Two',
+    name: 'Take Two',
   },
   {
     image: '',
-    songName: 'More',
+    name: 'More',
   },
 ]
 export function Overview() {
@@ -25,12 +27,7 @@ export function Overview() {
       <Separator />
       <XStack jc="center" ai="center" space>
         {playlist.map((song) => (
-          <>
-            <Avatar size="$10">
-              <Avatar.Fallback bc="#f6f986" />
-            </Avatar>
-            <Paragraph>{song.songName}</Paragraph>
-          </>
+          <SongCard song={song} />
         ))}
       </XStack>
     </>
