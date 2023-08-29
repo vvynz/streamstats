@@ -7,7 +7,7 @@ export function redirectToAuthCodeFlow(clientId: string) {
   const params = new URLSearchParams()
   params.append('client_id', clientId)
   params.append('response_type', 'code')
-  params.append('redirect_uri', 'http://localhost:5173/callback')
+  params.append('redirect_uri', 'http://localhost:3000')
   params.append('scope', 'user-read-private user-read-email')
   params.append('code_challenge_method', 'S256')
   params.append('code_challenge', challenge)
@@ -34,3 +34,27 @@ async function generateCodeChallenge(codeVerifiers: string) {
     .replace(/\\/g, '_')
     .replace(/=+$/, '')
 }
+
+const clientId = '2b521e63e3ff470fadd0ad967629e3cf'
+const redirectUri = 'http://localhost:3000'
+
+let codeVerifier = generateCodeVerifier(128)
+
+generateCodeChallenge(codeVerifier).then((codeChallenge) => {
+  let state = generateCodeVerifier(16)
+  let scope = 'user-read-currently-playing user-top-read user-library-read'
+
+  localStorage.setItem('code_verifier', codeVerifier)
+
+  let args = new URLSearchParams({
+    response_type: 'code',
+    client_id: clientId,
+    scope: scope,
+    redirect_uri: redirectUri,
+    state: state,
+    code_challenge_method: 'S256',
+    code_challenge: codeChallenge,
+  })
+
+  window.location = 'https://accounts.spotify.com/authorize?' + args
+})
