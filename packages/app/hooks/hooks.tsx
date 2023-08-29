@@ -58,3 +58,6 @@ generateCodeChallenge(codeVerifier).then((codeChallenge) => {
 
   window.location = 'https://accounts.spotify.com/authorize?' + args
 })
+
+const urlParams = new URLSearchParams(window.location.search)
+let code = urlParams.get('code')
