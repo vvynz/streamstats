@@ -111,34 +111,23 @@ generateCodeChallenge(codeVerifier).then((codeChallenge) => {
   window.location = 'https://accounts.spotify.com/authorize?' + args
 })
 
-const urlParams = new URLSearchParams(window.location.search)
-code = urlParams.get('code')
+async function getAccessToken(clientId: string, code: string): Promise<string> {
+  const codeVeri = localStorage.getItem('verifier')
+  const params = new URLSearchParams()
+  params.append('client_id', clientId)
+  params.append('grant_type', 'authorization_code')
+  params.append('code', code)
+  params.append('redirect_uri', redirectUri)
+  params.append('code_verifier', codeVeri!)
 
-let codeVeri = localStorage.getItem('code_verifier')
-let body = new URLSearchParams({
-  grant_type: 'authorization_code',
-  code: code,
-  redirect_uri: redirectUri,
-  client_id: clientId,
-  code_verifier: codeVeri,
-})
+  const response = fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
+  })
 
-const response = fetch('https://accounts.spotify.com/api/token', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-  body: body,
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('HTTP status' + response.status)
-    }
-    return response.json()
-  })
-  .then((data) => {
-    localStorage.setItem('access_token', data.access_token)
-  })
-  .catch((error) => {
-    console.error('Error', error)
-  })
+  const { access_token } = await (await response).json()
+  return access_token
+}
