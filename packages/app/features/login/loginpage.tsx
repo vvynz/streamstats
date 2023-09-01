@@ -4,7 +4,7 @@ import { Button, H1, H3, Paragraph, Separator, Text, XStack, YStack } from '@my/
 import { Home } from '@tamagui/lucide-icons'
 import { useLink } from 'solito/link'
 
-export default function LoginPage() {
+export function LoginPage() {
   const home = useLink({
     href: '/',
   })
@@ -42,11 +42,20 @@ export default function LoginPage() {
 
 const clientId = '2b521e63e3ff470fadd0ad967629e3cf'
 const redirectUri = 'http://localhost:3000'
-let code = ''
+const params = new URLSearchParams(window.location.search)
+const code = params.get('code')
 
-const redirectToAuthCodeFlow = (clientId) => {
+if (!code) {
+  redirectToAuthCodeFlow(clientId)
+} else {
+  const accessToken = await getAccessToken(clientId, code)
+  const profile = await fetchProfile(accessToken)
+  console.log(profile)
+}
+
+async function redirectToAuthCodeFlow(clientId: string) {
   const verifier = generateCodeVerifier(128)
-  const challenge = generateCodeChallenge(verifier)
+  const challenge = await generateCodeChallenge(verifier)
 
   localStorage.setItem('verifier', verifier)
 
@@ -61,7 +70,7 @@ const redirectToAuthCodeFlow = (clientId) => {
   document.location = `https://accounts.spotify.com/authorize?${params.toString()}`
 }
 
-function generateCodeVerifier(length) {
+function generateCodeVerifier(length: number) {
   let code = ''
   let char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -72,7 +81,7 @@ function generateCodeVerifier(length) {
   return code
 }
 
-async function generateCodeChallenge(codeVerifiers) {
+async function generateCodeChallenge(codeVerifiers: string) {
   const data = new TextEncoder().encode(codeVerifiers)
   const digest = await window.crypto.subtle.digest('SHA-256', data)
   return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
@@ -133,11 +142,3 @@ const response = fetch('https://accounts.spotify.com/api/token', {
   .catch((error) => {
     console.error('Error', error)
   })
-
-// if (!code) {
-//   redirectToAuthCodeFlow(clientId)
-// } else {
-//   // const accessToken = async getAccessToken(clientId, code)
-//   // const profile = async fetchProfile(accessToken)
-//   // console.log(profile)
-// }

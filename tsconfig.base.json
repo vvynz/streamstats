@@ -10,7 +10,7 @@
     "preserveSymlinks": true,
     "incremental": true,
     "jsx": "react-jsx",
-    "module": "system",
+    "module": "es2022",
     "moduleResolution": "node",
     "noEmitOnError": false,
     "noImplicitAny": false,
@@ -25,7 +25,7 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strictNullChecks": true,
-    "target": "es2020",
+    "target": "es2017",
     "types": ["node"],
     "lib": ["dom", "esnext"]
   },
