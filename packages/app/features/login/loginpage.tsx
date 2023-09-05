@@ -49,7 +49,7 @@ if (!code) {
   redirectToAuthCodeFlow(clientId)
 } else {
   const accessToken = await getAccessToken(clientId, code)
-  const profile = await fetchProfile(accessToken)
+  const profile = await getProfile(accessToken)
   console.log(profile)
 }
 
@@ -130,4 +130,13 @@ async function getAccessToken(clientId: string, code: string): Promise<string> {
 
   const { access_token } = await (await response).json()
   return access_token
+}
+
+async function getProfile(token: string): Promise<any> {
+  const result = await fetch('https://api.spotify.com/v1/me', {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+
+  return await result.json()
 }
