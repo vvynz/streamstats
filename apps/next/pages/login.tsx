@@ -1,4 +1,4 @@
-import { LoginPage } from 'app/features/login/loginpage'
+import { LoginPage } from 'app/features/login/login'
 import Head from 'next/head'
 
 export default function Login() {
