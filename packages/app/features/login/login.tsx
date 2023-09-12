@@ -23,17 +23,16 @@ export function LoginPage() {
   // const code = params.get('code')
   const code = ''
 
-  if (!code) {
-    redirectToAuthCodeFlow(clientId)
-  } else {
-    // const accessToken = await getAccessToken(clientId, code)
-    // const profile = await getProfile(accessToken)
+  if (code) {
+    // const accessToken = getAccessToken(clientId, code).then((data) => console.log(data))
+    // const profile = getProfile(accessToken)
     // console.log(profile)
+    console.log('There is a code???')
   }
 
   async function redirectToAuthCodeFlow(clientId: string) {
     const verifier = generateCodeVerifier(128)
-    const challenge = await generateCodeChallenge(verifier)
+    const challenge = generateCodeChallenge(verifier)
 
     localStorage.setItem('verifier', verifier)
 
@@ -86,7 +85,7 @@ export function LoginPage() {
       code_challenge: codeChallenge,
     })
 
-    // window.location = 'https://accounts.spotify.com/authorize?' + args
+    window.location = 'https://accounts.spotify.com/authorize?' + args
   })
 
   async function getAccessToken(clientId: string, code: string): Promise<string> {
@@ -127,7 +126,7 @@ export function LoginPage() {
       </XStack>
       <YStack ai="center" width="100%" maxWidth={500} space>
         <H3>Welcome to stream stats</H3>
-        <Button bg="#00C354" borderRadius={30} onPress={() => redirectToAuthCodeFlow}>
+        <Button bg="#00C354" borderRadius={30} {...redirectToAuthCodeFlow(clientId)}>
           Login with Spotify
         </Button>
         <Separator alignSelf="stretch" marginVertical={15} borderColor="#ffffff" />
