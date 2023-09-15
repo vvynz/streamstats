@@ -46,17 +46,17 @@ export function Overview() {
         ))}
       </XStack>
 
-      <YStack>
-        <XStack>
+      <YStack display="flex" flexDirection="column" jc="space-evenly">
+        <XStack jc="center" ai="center" space>
           <H4>Your Top Song This Week</H4>
           <SongCard song="For Us" />
         </XStack>
-        <XStack>
+        <YStack ai="center" space>
           <H4>Your Top Songs This Month</H4>
           {monthlyPlaylist.map((song) => (
             <SongCard song={song} />
           ))}
-        </XStack>
+        </YStack>
       </YStack>
     </>
   )
