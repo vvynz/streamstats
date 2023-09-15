@@ -1,4 +1,4 @@
-import { Avatar, H3, Paragraph, Separator, XStack, YStack } from '@my/ui'
+import { Avatar, H3, H4, Paragraph, Separator, XStack, YStack } from '@my/ui'
 
 import { SongCard } from '../music/songcard'
 
@@ -20,6 +20,21 @@ const playlist = [
     name: 'More',
   },
 ]
+
+const monthlyPlaylist = [
+  {
+    image: '',
+    name: 'Seven (ft. Latto)',
+  },
+  {
+    image: '',
+    name: 'For Us',
+  },
+  {
+    image: '',
+    name: 'Slow Dancing',
+  },
+]
 export function Overview() {
   return (
     <>
@@ -30,6 +45,19 @@ export function Overview() {
           <SongCard song={song} />
         ))}
       </XStack>
+
+      <YStack>
+        <XStack>
+          <H4>Your Top Song This Week</H4>
+          <SongCard song="For Us" />
+        </XStack>
+        <XStack>
+          <H4>Your Top Songs This Month</H4>
+          {monthlyPlaylist.map((song) => (
+            <SongCard song={song} />
+          ))}
+        </XStack>
+      </YStack>
     </>
   )
 }
