@@ -9,28 +9,32 @@ export function LoginPage() {
     href: '/',
   })
 
-  const spotifyLogin = useLink({
-    href: 'https://accounts.spotify.com/en/login',
-  })
-
-  const newSpotifyAccount = useLink({
-    href: 'https://www.spotify.com/en/signup',
-  })
-
   const clientId = '2b521e63e3ff470fadd0ad967629e3cf'
   const redirectUri = 'http://localhost:3000'
   // const params = new URLSearchParams(window.location.search)
   // const code = params.get('code')
   const code = ''
 
-  if (code) {
-    // const accessToken = getAccessToken(clientId, code).then((data) => console.log(data))
-    // const profile = getProfile(accessToken)
-    // console.log(profile)
-    console.log('There is a code???')
-  }
+  const spotifyLogin = useLink({
+    // href: 'https://accounts.spotify.com/en/login',
+    href: redirectToAuthCodeFlow(clientId),
+  })
 
-  async function redirectToAuthCodeFlow(clientId: string) {
+  const AUTH_CODE =
+    'https://accounts.spotify.com/en/authorize?response_type=code&client_id=2b521e63e3ff470fadd0ad967629e3cf&scope=user-read-currently-playing+user-top-read+user-library-read&redirect_uri=http%3A%2F%2Flocalhost%3A3000&state=7KPyhSW75a52IQI5&code_challenge_method=S256&code_challenge=1p0Fkao178BoEHy-8zogyK9Hf7gSnKkfP3O6cYc5ygo'
+
+  const newSpotifyAccount = useLink({
+    href: 'https://www.spotify.com/en/signup',
+  })
+
+  // if (code) {
+  //   // const accessToken = getAccessToken(clientId, code).then((data) => console.log(data))
+  //   // const profile = getProfile(accessToken)
+  //   // console.log(profile)
+  //   console.log('There is a code???')
+  // }
+
+  function redirectToAuthCodeFlow(clientId: string) {
     const verifier = generateCodeVerifier(128)
     const challenge = generateCodeChallenge(verifier)
 
@@ -44,7 +48,8 @@ export function LoginPage() {
     params.append('code_challenge_method', 'S256')
     params.append('code_challenge', challenge)
 
-    document.location = `https://accounts.spotify.com/authorize?${params.toString()}`
+    // document.location =
+    return `https://accounts.spotify.com/authorize?${params.toString()}`
   }
 
   function generateCodeVerifier(length: number) {
@@ -85,7 +90,7 @@ export function LoginPage() {
       code_challenge: codeChallenge,
     })
 
-    window.location = 'https://accounts.spotify.com/authorize?' + args
+    // window.location = 'https://accounts.spotify.com/authorize?' + args
   })
 
   async function getAccessToken(clientId: string, code: string): Promise<string> {
@@ -126,7 +131,7 @@ export function LoginPage() {
       </XStack>
       <YStack ai="center" width="100%" maxWidth={500} space>
         <H3>Welcome to stream stats</H3>
-        <Button bg="#00C354" borderRadius={30} {...redirectToAuthCodeFlow(clientId)}>
+        <Button bg="#00C354" borderRadius={30} {...spotifyLogin}>
           Login with Spotify
         </Button>
         <Separator alignSelf="stretch" marginVertical={15} borderColor="#ffffff" />

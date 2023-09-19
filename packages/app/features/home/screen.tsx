@@ -18,11 +18,12 @@ import { useLink } from 'solito/link'
 // Components
 import { UserIdHeader } from '../user/id-header'
 import { Overview } from '../overview/overview'
+import { Main } from '../user/main'
 import { LoginPage } from '../login/login'
 import { Link } from '../link/link'
 
 export function HomeScreen() {
-  const [user, setUser] = useState('RJ')
+  const [user, setUser] = useState('')
   const [code, setCode] = useState('')
 
   const linkProps = useLink({
