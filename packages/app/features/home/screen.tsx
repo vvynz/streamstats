@@ -26,6 +26,9 @@ export function HomeScreen() {
   const [user, setUser] = useState('')
   const [code, setCode] = useState('')
 
+  const clientID = '2b521e63e3ff470fadd0ad967629e3cf'
+  const redirectURL = 'http://localhost:3000'
+
   const linkProps = useLink({
     href: '/user/RJ',
   })
@@ -56,6 +59,12 @@ export function HomeScreen() {
 
       {/* <SheetDemo /> */}
     </YStack>
+
+    // code ? (
+    //   <Main code={code} />
+    // ) : (
+    //   <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
+    // )
   )
 }
 

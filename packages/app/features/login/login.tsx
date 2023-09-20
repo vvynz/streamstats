@@ -4,44 +4,38 @@ import { Button, H1, H3, Paragraph, Separator, Text, XStack, YStack } from '@my/
 import { Home } from '@tamagui/lucide-icons'
 import { useLink } from 'solito/link'
 
-export function LoginPage() {
+export function LoginPage({ clientID, redirectURL, code, setCode }) {
   const home = useLink({
     href: '/',
   })
 
-  const clientId = '2b521e63e3ff470fadd0ad967629e3cf'
-  const redirectUri = 'http://localhost:3000'
   // const params = new URLSearchParams(window.location.search)
   // const code = params.get('code')
-  const code = ''
 
   const spotifyLogin = useLink({
     // href: 'https://accounts.spotify.com/en/login',
-    href: redirectToAuthCodeFlow(clientId),
+    href: redirectToAuthCodeFlow(clientID),
   })
-
-  const AUTH_CODE =
-    'https://accounts.spotify.com/en/authorize?response_type=code&client_id=2b521e63e3ff470fadd0ad967629e3cf&scope=user-read-currently-playing+user-top-read+user-library-read&redirect_uri=http%3A%2F%2Flocalhost%3A3000&state=7KPyhSW75a52IQI5&code_challenge_method=S256&code_challenge=1p0Fkao178BoEHy-8zogyK9Hf7gSnKkfP3O6cYc5ygo'
 
   const newSpotifyAccount = useLink({
     href: 'https://www.spotify.com/en/signup',
   })
 
   // if (code) {
-  //   // const accessToken = getAccessToken(clientId, code).then((data) => console.log(data))
+  //   // const accessToken = getAccessToken(clientID, code).then((data) => console.log(data))
   //   // const profile = getProfile(accessToken)
   //   // console.log(profile)
   //   console.log('There is a code???')
   // }
 
-  function redirectToAuthCodeFlow(clientId: string) {
+  function redirectToAuthCodeFlow(clientID: string) {
     const verifier = generateCodeVerifier(128)
     const challenge = generateCodeChallenge(verifier)
 
     localStorage.setItem('verifier', verifier)
 
     const params = new URLSearchParams()
-    params.append('client_id', clientId)
+    params.append('client_id', clientID)
     params.append('response_type', 'code')
     params.append('redirect_uri', 'http://localhost:3000')
     params.append('scope', 'user-read-private user-read-email')
@@ -82,9 +76,9 @@ export function LoginPage() {
 
     let args = new URLSearchParams({
       response_type: 'code',
-      client_id: clientId,
+      client_id: clientID,
       scope: scope,
-      redirect_uri: redirectUri,
+      redirect_uri: redirectURL,
       state: state,
       code_challenge_method: 'S256',
       code_challenge: codeChallenge,
@@ -93,13 +87,13 @@ export function LoginPage() {
     // window.location = 'https://accounts.spotify.com/authorize?' + args
   })
 
-  async function getAccessToken(clientId: string, code: string): Promise<string> {
+  async function getAccessToken(clientID: string, code: string): Promise<string> {
     const codeVeri = localStorage.getItem('verifier')
     const params = new URLSearchParams()
-    params.append('client_id', clientId)
+    params.append('client_id', clientID)
     params.append('grant_type', 'authorization_code')
     params.append('code', code)
-    params.append('redirect_uri', redirectUri)
+    params.append('redirect_uri', redirectURL)
     params.append('code_verifier', codeVeri!)
 
     const response = fetch('https://accounts.spotify.com/api/token', {

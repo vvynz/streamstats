@@ -18,7 +18,7 @@ import { useLink } from 'solito/link'
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 
-export default function Main() {
+export default function Main({ code }) {
   const [user, setUser] = useState('RJ')
 
   const linkProps = useLink({
@@ -28,6 +28,8 @@ export default function Main() {
   const loginProps = useLink({
     href: '/login',
   })
+
+  console.log('code=', code)
 
   return (
     <YStack f={1} p="$4" space>
