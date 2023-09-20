@@ -4,18 +4,18 @@ import { SongCard } from '../music/songcard'
 
 const playlist = [
   {
+    id: 1,
     image: '',
     name: 'Seven (ft. Latto)',
   },
+  { id: 2, image: '', name: 'People' },
   {
-    image: '',
-    name: 'People',
-  },
-  {
+    id: 3,
     image: '',
     name: 'Take Two',
   },
   {
+    id: 4,
     image: '',
     name: 'More',
   },
@@ -23,14 +23,17 @@ const playlist = [
 
 const monthlyPlaylist = [
   {
+    id: 1,
     image: '',
     name: 'Seven (ft. Latto)',
   },
   {
+    id: 2,
     image: '',
     name: 'For Us',
   },
   {
+    id: 3,
     image: '',
     name: 'Slow Dancing',
   },
@@ -42,7 +45,7 @@ export function Overview() {
       <Separator />
       <XStack jc="center" ai="center" space>
         {playlist.map((song) => (
-          <SongCard song={song} />
+          <SongCard key={song.id} song={song} />
         ))}
       </XStack>
 
@@ -54,7 +57,7 @@ export function Overview() {
         <YStack ai="center" space>
           <H4>Your Top Songs This Month</H4>
           {monthlyPlaylist.map((song) => (
-            <SongCard song={song} />
+            <SongCard key={song.id} song={song} />
           ))}
         </YStack>
       </YStack>
