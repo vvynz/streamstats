@@ -37,34 +37,58 @@ export function HomeScreen() {
     href: '/login',
   })
 
+  let WINDOW = {}
+
+  if (typeof window !== 'undefined') {
+    WINDOW = window
+  } else {
+    WINDOW = {
+      document: {
+        location: {
+          search: {
+            code: '',
+          },
+        },
+      },
+      localStorage: {
+        getItem: () => {},
+        setItem: () => {},
+      },
+    }
+  }
+
+  const codeID = new URLSearchParams(WINDOW.location.search).get('code')
+
+  console.log(codeID)
+
   return (
-    <YStack f={1} p="$4" space>
-      <XStack jc="space-between">
-        <H1>Stream Stats</H1>
-        <XStack>
-          {user ? (
-            <Button {...linkProps}>Go to User</Button>
-          ) : (
-            <Button {...loginProps}>Login</Button>
-          )}
-          {/* <Link href={`/user/RJ`} text="Login" /> */}
-        </XStack>
-      </XStack>
+    // <YStack f={1} p="$4" space>
+    //   <XStack jc="space-between">
+    //     <H1>Stream Stats</H1>
+    //     <XStack>
+    //       {user ? (
+    //         <Button {...linkProps}>Go to User</Button>
+    //       ) : (
+    //         <Button {...loginProps}>Login</Button>
+    //       )}
+    //       {/* <Link href={`/user/RJ`} text="Login" /> */}
+    //     </XStack>
+    //   </XStack>
 
-      <XStack jc="center" ai="center" space>
-        <UserIdHeader />
-      </XStack>
+    //   <XStack jc="center" ai="center" space>
+    //     <UserIdHeader />
+    //   </XStack>
 
-      <Overview />
+    //   <Overview />
 
-      {/* <SheetDemo /> */}
-    </YStack>
+    //   {/* <SheetDemo /> */}
+    // </YStack>
 
-    // code ? (
-    //   <Main code={code} />
-    // ) : (
-    //   <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
-    // )
+    code ? (
+      <Main code={code} />
+    ) : (
+      <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
+    )
   )
 }
 

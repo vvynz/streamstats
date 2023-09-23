@@ -4,13 +4,15 @@ import { Button, H1, H3, Paragraph, Separator, Text, XStack, YStack } from '@my/
 import { Home } from '@tamagui/lucide-icons'
 import { useLink } from 'solito/link'
 
-export function LoginPage({ clientID, redirectURL, code, setCode }) {
+export function LoginPage({ redirectURL, code, setCode }) {
   const home = useLink({
     href: '/',
   })
 
   // const params = new URLSearchParams(window.location.search)
   // const code = params.get('code')
+
+  const clientID = '2b521e63e3ff470fadd0ad967629e3cf'
 
   const spotifyLogin = useLink({
     // href: 'https://accounts.spotify.com/en/login',
@@ -32,7 +34,7 @@ export function LoginPage({ clientID, redirectURL, code, setCode }) {
     const verifier = generateCodeVerifier(128)
     const challenge = generateCodeChallenge(verifier)
 
-    localStorage.setItem('verifier', verifier)
+    // localStorage.setItem('verifier', verifier)
 
     const params = new URLSearchParams()
     params.append('client_id', clientID)
