@@ -50,7 +50,7 @@ export function HomeScreen() {
   // console.log('from app', code)
 
   return code ? (
-    <Main code={code} />
+    <Main code={code} clientID={clientID} redirectURL={redirectURL} />
   ) : (
     <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
   )

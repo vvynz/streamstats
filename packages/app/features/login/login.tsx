@@ -9,9 +9,6 @@ export function LoginPage({ redirectURL, code, setCode }) {
     href: '/',
   })
 
-  // const params = new URLSearchParams(window.location.search)
-  // const code = params.get('code')
-
   const clientID = '2b521e63e3ff470fadd0ad967629e3cf'
 
   const spotifyLogin = useLink({
@@ -88,27 +85,6 @@ export function LoginPage({ redirectURL, code, setCode }) {
 
     // window.location = 'https://accounts.spotify.com/authorize?' + args
   })
-
-  async function getAccessToken(clientID: string, code: string): Promise<string> {
-    const codeVeri = localStorage.getItem('verifier')
-    const params = new URLSearchParams()
-    params.append('client_id', clientID)
-    params.append('grant_type', 'authorization_code')
-    params.append('code', code)
-    params.append('redirect_uri', redirectURL)
-    params.append('code_verifier', codeVeri!)
-
-    const response = fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: params,
-    })
-
-    const { access_token } = await (await response).json()
-    return access_token
-  }
 
   async function getProfile(token: string): Promise<any> {
     const result = await fetch('https://api.spotify.com/v1/me', {
