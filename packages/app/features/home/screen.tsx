@@ -12,7 +12,7 @@ import {
   ZStack,
 } from '@my/ui'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLink } from 'solito/link'
 
 // Components
@@ -37,58 +37,22 @@ export function HomeScreen() {
     href: '/login',
   })
 
-  let WINDOW = {}
+  let codeID
 
-  if (typeof window !== 'undefined') {
-    WINDOW = window
-  } else {
-    WINDOW = {
-      document: {
-        location: {
-          search: {
-            code: '',
-          },
-        },
-      },
-      localStorage: {
-        getItem: () => {},
-        setItem: () => {},
-      },
-    }
-  }
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      console.log('scroll!')
+    })
+    codeID = new URLSearchParams(window.location.search).get('code')
+    setCode(codeID)
+  }, [])
 
-  const codeID = new URLSearchParams(WINDOW.location.search).get('code')
+  // console.log('from app', code)
 
-  console.log(codeID)
-
-  return (
-    // <YStack f={1} p="$4" space>
-    //   <XStack jc="space-between">
-    //     <H1>Stream Stats</H1>
-    //     <XStack>
-    //       {user ? (
-    //         <Button {...linkProps}>Go to User</Button>
-    //       ) : (
-    //         <Button {...loginProps}>Login</Button>
-    //       )}
-    //       {/* <Link href={`/user/RJ`} text="Login" /> */}
-    //     </XStack>
-    //   </XStack>
-
-    //   <XStack jc="center" ai="center" space>
-    //     <UserIdHeader />
-    //   </XStack>
-
-    //   <Overview />
-
-    //   {/* <SheetDemo /> */}
-    // </YStack>
-
-    code ? (
-      <Main code={code} />
-    ) : (
-      <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
-    )
+  return code ? (
+    <Main code={code} />
+  ) : (
+    <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
   )
 }
 

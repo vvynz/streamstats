@@ -18,7 +18,7 @@ import { useLink } from 'solito/link'
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 
-export default function Main({ code }) {
+export function Main({ code }) {
   const [user, setUser] = useState('RJ')
 
   const linkProps = useLink({
