@@ -37,12 +37,13 @@ export function HomeScreen() {
     href: '/login',
   })
 
-  let codeID
-
   useEffect(() => {
+    let codeID
+
     window.addEventListener('scroll', () => {
       console.log('scroll!')
     })
+
     codeID = new URLSearchParams(window.location.search).get('code')
     setCode(codeID)
   }, [])
@@ -52,7 +53,7 @@ export function HomeScreen() {
   return code ? (
     <Main code={code} clientID={clientID} redirectURL={redirectURL} />
   ) : (
-    <LoginPage code={code} setCode={setCode} clientID={clientID} redirectURL={redirectURL} />
+    <LoginPage code={code} setCode={setCode} redirectURL={redirectURL} />
   )
 }
 

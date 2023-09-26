@@ -11,7 +11,7 @@ import {
   ZStack,
 } from '@my/ui'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLink } from 'solito/link'
 
 //Components
@@ -21,6 +21,7 @@ import { Overview } from '../overview/overview'
 export function Main({ code, clientID, redirectURL }) {
   const [user, setUser] = useState('RJ')
   const [accessToken, setAccessToken] = useState('')
+  const [verifier, setVerifier] = useState('')
 
   const linkProps = useLink({
     href: '/user/RJ',
@@ -32,13 +33,12 @@ export function Main({ code, clientID, redirectURL }) {
 
   // console.log('code=', code)
   async function getAccessToken(clientID: string, code: string): Promise<string> {
-    const codeVeri = localStorage.getItem('verifier')
     const params = new URLSearchParams()
     params.append('client_id', clientID)
     params.append('grant_type', 'authorization_code')
     params.append('code', code)
     params.append('redirect_uri', redirectURL)
-    params.append('code_verifier', codeVeri!)
+    params.append('code_verifier', verifier)
 
     const response = fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -51,6 +51,19 @@ export function Main({ code, clientID, redirectURL }) {
     const { access_token } = await (await response).json()
     return access_token
   }
+
+  useEffect(() => {
+    let codeVerifier
+    window.addEventListener('scroll', () => {})
+
+    codeVerifier = localStorage.getItem('verifier')
+    console.log('verifier=', codeVerifier)
+
+    setVerifier(codeVerifier)
+
+    const token = getAccessToken(clientID, code)
+    console.log(token)
+  }, [])
 
   return (
     <YStack f={1} p="$4" space>
