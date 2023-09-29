@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Button, H1, H3, Paragraph, Separator, Text, XStack, YStack } from '@my/ui'
 import { Home } from '@tamagui/lucide-icons'
@@ -27,12 +27,15 @@ export function LoginPage({ redirectURL, code, setCode }) {
   //   console.log('There is a code???')
   // }
 
+  const verifier = generateCodeVerifier(128)
+  let challenge
+
+  useEffect(() => {
+    challenge = generateCodeChallenge(verifier)
+    localStorage.setItem('verifier', verifier)
+  }, [])
+
   function redirectToAuthCodeFlow(clientID: string) {
-    const verifier = generateCodeVerifier(128)
-    const challenge = generateCodeChallenge(verifier)
-
-    // localStorage.setItem('verifier', verifier)
-
     const params = new URLSearchParams()
     params.append('client_id', clientID)
     params.append('response_type', 'code')
