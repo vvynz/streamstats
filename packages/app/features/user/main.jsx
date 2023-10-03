@@ -18,7 +18,7 @@ import { useLink } from 'solito/link'
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 
-export function Main({ code, clientID, redirectURL }) {
+export default function Main({ code, clientID, redirectURL }) {
   const [user, setUser] = useState('RJ')
   const [accessToken, setAccessToken] = useState('')
   const [verifier, setVerifier] = useState('')

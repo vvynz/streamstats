@@ -10,6 +10,13 @@ export function LoginPage({ redirectURL, code, setCode }) {
   })
 
   const clientID = '2b521e63e3ff470fadd0ad967629e3cf'
+  const verifier = generateCodeVerifier(128)
+  let challenge
+
+  useEffect(() => {
+    challenge = generateCodeChallenge(verifier)
+    localStorage.setItem('verifier', verifier)
+  }, [])
 
   const spotifyLogin = useLink({
     // href: 'https://accounts.spotify.com/en/login',
@@ -26,14 +33,6 @@ export function LoginPage({ redirectURL, code, setCode }) {
   //   // console.log(profile)
   //   console.log('There is a code???')
   // }
-
-  const verifier = generateCodeVerifier(128)
-  let challenge
-
-  useEffect(() => {
-    challenge = generateCodeChallenge(verifier)
-    localStorage.setItem('verifier', verifier)
-  }, [])
 
   function redirectToAuthCodeFlow(clientID: string) {
     const params = new URLSearchParams()
