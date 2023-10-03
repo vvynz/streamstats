@@ -34,7 +34,7 @@ export function LoginPage({ redirectURL, code, setCode }) {
   //   console.log('There is a code???')
   // }
 
-  function redirectToAuthCodeFlow(clientID: string) {
+  function redirectToAuthCodeFlow(clientID) {
     const params = new URLSearchParams()
     params.append('client_id', clientID)
     params.append('response_type', 'code')
@@ -47,7 +47,7 @@ export function LoginPage({ redirectURL, code, setCode }) {
     return `https://accounts.spotify.com/authorize?${params.toString()}`
   }
 
-  function generateCodeVerifier(length: number) {
+  function generateCodeVerifier(length) {
     let code = ''
     let char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -58,7 +58,7 @@ export function LoginPage({ redirectURL, code, setCode }) {
     return code
   }
 
-  async function generateCodeChallenge(codeVerifiers: string) {
+  async function generateCodeChallenge(codeVerifiers) {
     const data = new TextEncoder().encode(codeVerifiers)
     const digest = await window.crypto.subtle.digest('SHA-256', data)
     return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
@@ -88,7 +88,7 @@ export function LoginPage({ redirectURL, code, setCode }) {
     // window.location = 'https://accounts.spotify.com/authorize?' + args
   })
 
-  async function getProfile(token: string): Promise<any> {
+  async function getProfile(token) {
     const result = await fetch('https://api.spotify.com/v1/me', {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },

@@ -18,7 +18,7 @@ import { useLink } from 'solito/link'
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 
-export default function Main({ code, clientID, redirectURL }) {
+export function Main({ code, clientID, redirectURL }) {
   const [user, setUser] = useState('RJ')
   const [accessToken, setAccessToken] = useState('')
   const [verifier, setVerifier] = useState('')
@@ -32,7 +32,7 @@ export default function Main({ code, clientID, redirectURL }) {
   })
 
   // console.log('code=', code)
-  async function getAccessToken(clientID: string, code: string): Promise<string> {
+  async function getAccessToken(clientID, code) {
     const params = new URLSearchParams()
     params.append('client_id', clientID)
     params.append('grant_type', 'authorization_code')
