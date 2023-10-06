@@ -17,11 +17,14 @@ import { useLink } from 'solito/link'
 //Components
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
+import { useAuth } from './useAuth'
 
 export function Main({ code, clientID, redirectURL }) {
+  const accessToken = useAuth(code)
   const [user, setUser] = useState('RJ')
-  const [accessToken, setAccessToken] = useState('')
   const [verifier, setVerifier] = useState('')
+
+  console.log('from main, AT=', accessToken)
 
   const linkProps = useLink({
     href: '/user/RJ',

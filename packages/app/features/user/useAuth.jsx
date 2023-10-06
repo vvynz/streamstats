@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export function useAuth(code) {
   const [accessToken, setAccessToken] = useState()
+  console.log(code)
 
   useEffect(() => {
     axios
@@ -14,6 +15,7 @@ export function useAuth(code) {
       })
       .catch((err) => {
         console.log(err)
+        window.location = '/'
       })
   }, [code])
   console.log('from hook AT=', accessToken)
