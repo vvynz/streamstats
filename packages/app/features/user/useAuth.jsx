@@ -6,17 +6,17 @@ export function useAuth(code) {
   console.log(code)
 
   useEffect(() => {
-    axios
-      .post('http://localhost:3000/login', {
-        code,
-      })
-      .then((res) => {
-        setAccessToken(res.data.accessToken)
-      })
-      .catch((err) => {
-        console.log(err)
-        window.location = '/'
-      })
+    // axios
+    //   .post('http://localhost:3000/login', {
+    //     code,
+    //   })
+    //   .then((res) => {
+    //     setAccessToken(res.data.accessToken)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //     window.location = '/'
+    //   })
   }, [code])
   console.log('from hook AT=', accessToken)
   return accessToken

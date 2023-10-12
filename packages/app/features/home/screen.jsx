@@ -45,6 +45,7 @@ export function HomeScreen() {
     })
 
     codeID = new URLSearchParams(window.location.search).get('code')
+    window.localStorage.setItem('accessToken', codeID)
     setCode(codeID)
   }, [])
 
