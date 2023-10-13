@@ -18,6 +18,7 @@ import { useLink } from 'solito/link'
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 import { useAuth } from './useAuth'
+import axios from 'axios'
 
 export function Main({ code, clientID, redirectURL }) {
   const accessToken = useAuth(code)
@@ -58,9 +59,21 @@ export function Main({ code, clientID, redirectURL }) {
 
   const logout = () => {}
 
-  const searchArtist = (e) => {
-    alert('hi')
+  const searchArtist = async () => {
+    // e.preventDefault()
+
+    const { data } = await axios.get('https://api.spotify.com/v1/search', {
+      headers: {
+        Authorization: `Bearer ${code}`,
+      },
+      params: {
+        q: 'Jungkook',
+        type: 'artist',
+      },
+    })
+    setArtists(data)
   }
+  console.log(artists)
 
   useEffect(() => {
     let codeVerifier
