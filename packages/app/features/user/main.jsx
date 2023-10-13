@@ -23,6 +23,7 @@ export function Main({ code, clientID, redirectURL }) {
   const accessToken = useAuth(code)
   const [user, setUser] = useState('RJ')
   const [verifier, setVerifier] = useState('')
+  const [artists, setArtists] = useState([])
 
   console.log('from main, AT=', accessToken)
 
@@ -53,6 +54,12 @@ export function Main({ code, clientID, redirectURL }) {
 
     const { access_token } = await (await response).json()
     return access_token
+  }
+
+  const logout = () => {}
+
+  const searchArtist = (e) => {
+    alert('hi')
   }
 
   useEffect(() => {
@@ -87,6 +94,7 @@ export function Main({ code, clientID, redirectURL }) {
       </XStack>
 
       <Overview />
+      <Button onPress={() => searchArtist()}>Search</Button>
 
       {/* <SheetDemo /> */}
     </YStack>
