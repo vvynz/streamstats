@@ -57,14 +57,17 @@ export function Main({ code, clientID, redirectURL }) {
     return access_token
   }
 
-  const logout = () => {}
+  const logout = () => {
+    setVerifier('')
+    localStorage.removeItem('verifier')
+  }
 
-  const searchArtist = async () => {
-    // e.preventDefault()
+  const searchArtist = async (e) => {
+    e.preventDefault()
 
     const { data } = await axios.get('https://api.spotify.com/v1/search', {
       headers: {
-        Authorization: `Bearer ${code}`,
+        Authorization: `Bearer ${verifier}`,
       },
       params: {
         q: 'Jungkook',
@@ -87,6 +90,7 @@ export function Main({ code, clientID, redirectURL }) {
     const token = getAccessToken(clientID, code)
     console.log(token)
   }, [])
+  console.log(verifier)
 
   return (
     <YStack f={1} p="$4" space>
@@ -94,7 +98,12 @@ export function Main({ code, clientID, redirectURL }) {
         <H1>Stream Stats</H1>
         <XStack>
           {user ? (
-            <Button {...linkProps}>Go to User</Button>
+            <XStack>
+              <Button {...linkProps}>Go to User</Button>
+              <Button onPress={() => logout()} {...loginProps}>
+                Logout
+              </Button>
+            </XStack>
           ) : (
             <Button {...loginProps}>Login</Button>
           )}
@@ -107,7 +116,7 @@ export function Main({ code, clientID, redirectURL }) {
       </XStack>
 
       <Overview />
-      <Button onPress={() => searchArtist()}>Search</Button>
+      <Button onPress={(e) => searchArtist(e)}>Search</Button>
 
       {/* <SheetDemo /> */}
     </YStack>
