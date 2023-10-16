@@ -4,28 +4,46 @@ import { Button, H1, H3, Paragraph, Separator, Text, XStack, YStack } from '@my/
 import { Home } from '@tamagui/lucide-icons'
 import { useLink } from 'solito/link'
 
-export function LoginPage({ redirectURL, code, setCode }) {
+export function LoginPage({ code, setCode }) {
+  const [token, setToken] = useState('')
+
   const home = useLink({
     href: '/',
   })
 
   const clientID = '2b521e63e3ff470fadd0ad967629e3cf'
+  const redirectURL = 'http://localhost:3000'
+  const authEndPoint = 'https://accounts.spotify.com/authorize'
+  const resType = 'token'
   const verifier = generateCodeVerifier(128)
-  let challenge
+
+  const getToken = () => {
+    let urlParams = new URLSearchParams(window.location.hash.replace('#', '?'))
+    let token = urlParams.get('access_token')
+    return token
+  }
 
   useEffect(() => {
-    challenge = generateCodeChallenge(verifier)
+    // challenge = generateCodeChallenge(verifier)
     localStorage.setItem('verifier', verifier)
+
+    const hash = window.location.hash
+    // let token = window.localStorage.getItem('token')
+    let accessToken = getToken()
+
+    if (!token && hash) {
+      accessToken = hash
+        .substring(1)
+        .split('&')
+        .find((el) => el.startsWith('access_token'))
+        .split('=')[1]
+    }
+
+    localStorage.setItem('access_token', accessToken)
+
+    setToken(accessToken)
   }, [])
-
-  const spotifyLogin = useLink({
-    // href: 'https://accounts.spotify.com/en/login',
-    href: redirectToAuthCodeFlow(clientID),
-  })
-
-  const newSpotifyAccount = useLink({
-    href: 'https://www.spotify.com/en/signup',
-  })
+  console.log('token=', token)
 
   // if (code) {
   //   // const accessToken = getAccessToken(clientID, code).then((data) => console.log(data))
@@ -34,7 +52,20 @@ export function LoginPage({ redirectURL, code, setCode }) {
   //   console.log('There is a code???')
   // }
 
-  function redirectToAuthCodeFlow(clientID) {
+  const generateCodeChallenge = async (codeVerifiers) => {
+    const data = new TextEncoder().encode(codeVerifiers)
+    const digest = await window.crypto.subtle.digest('SHA-256', data)
+    return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
+      .replace(/\+/g, '-')
+      .replace(/\\/g, '_')
+      .replace(/=+$/, '')
+  }
+
+  let challenge = generateCodeChallenge(verifier)
+  let codeVerifier = generateCodeVerifier(128)
+  console.log('challenge=', challenge)
+
+  function redirectToAuthCodeFlow(clientID, challenge) {
     const params = new URLSearchParams()
     params.append('client_id', clientID)
     params.append('response_type', 'code')
@@ -57,17 +88,6 @@ export function LoginPage({ redirectURL, code, setCode }) {
 
     return code
   }
-
-  const generateCodeChallenge = async (codeVerifiers) => {
-    const data = new TextEncoder().encode(codeVerifiers)
-    const digest = await window.crypto.subtle.digest('SHA-256', data)
-    return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
-      .replace(/\+/g, '-')
-      .replace(/\\/g, '_')
-      .replace(/=+$/, '')
-  }
-
-  let codeVerifier = generateCodeVerifier(128)
 
   generateCodeChallenge(codeVerifier).then((codeChallenge) => {
     let state = generateCodeVerifier(16)
@@ -97,6 +117,16 @@ export function LoginPage({ redirectURL, code, setCode }) {
 
     return await result.json()
   }
+
+  const spotifyLogin = useLink({
+    // href: 'https://accounts.spotify.com/en/login',
+    // href: redirectToAuthCodeFlow(clientID, challenge),
+    href: `${authEndPoint}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${resType}`,
+  })
+
+  const newSpotifyAccount = useLink({
+    href: 'https://www.spotify.com/en/signup',
+  })
 
   return (
     <YStack>

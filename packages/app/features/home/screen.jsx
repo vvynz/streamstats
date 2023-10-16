@@ -44,12 +44,13 @@ export function HomeScreen() {
       console.log('scroll!')
     })
 
-    codeID = new URLSearchParams(window.location.search).get('code')
-    window.localStorage.setItem('accessToken', codeID)
+    codeID = localStorage.getItem('access_token')
+    // new URLSearchParams(window.location.search).get('access_token')
+    // window.localStorage.setItem('accessToken', codeID)
     setCode(codeID)
   }, [])
 
-  // console.log('from app', code)
+  console.log('from app', code)
 
   return code ? (
     <Main code={code} clientID={clientID} redirectURL={redirectURL} />

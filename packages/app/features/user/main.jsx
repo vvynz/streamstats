@@ -59,7 +59,7 @@ export function Main({ code, clientID, redirectURL }) {
 
   const logout = () => {
     setVerifier('')
-    localStorage.removeItem('verifier')
+    window.localStorage.removeItem('verifier')
   }
 
   const searchArtist = async (e) => {
@@ -91,6 +91,15 @@ export function Main({ code, clientID, redirectURL }) {
     console.log(token)
   }, [])
   console.log(verifier)
+
+  const getToken = () => {
+    let urlParams = new URLSearchParams(window.location.hash.replace('#', '?'))
+    let token = urlParams.get('access_token')
+    return token
+  }
+
+  const aToken = getToken()
+  console.log('aToken=', aToken)
 
   return (
     <YStack f={1} p="$4" space>
