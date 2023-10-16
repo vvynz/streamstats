@@ -26,7 +26,7 @@ export function Main({ code, clientID, redirectURL }) {
   const [verifier, setVerifier] = useState('')
   const [artists, setArtists] = useState([])
 
-  console.log('from main, AT=', accessToken)
+  // console.log('from main, AT=', accessToken)
 
   const linkProps = useLink({
     href: '/user/RJ',
@@ -36,29 +36,9 @@ export function Main({ code, clientID, redirectURL }) {
     href: '/login',
   })
 
-  async function getAccessToken(clientID, code) {
-    const params = new URLSearchParams()
-    params.append('client_id', clientID)
-    params.append('grant_type', 'authorization_code')
-    params.append('code', code)
-    params.append('redirect_uri', redirectURL)
-    params.append('code_verifier', verifier)
-
-    const response = fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: params,
-    })
-
-    const { access_token } = await (await response).json()
-    return access_token
-  }
-
   const logout = () => {
-    setVerifier('')
-    window.localStorage.removeItem('verifier')
+    setAccessToken('')
+    window.localStorage.removeItem('access_token')
   }
 
   const searchArtist = async (e) => {
@@ -79,8 +59,9 @@ export function Main({ code, clientID, redirectURL }) {
 
   useEffect(() => {
     setAccessToken(code)
+
     let codeVerifier
-    window.addEventListener('scroll', () => {})
+    // window.addEventListener('scroll', () => {})
 
     codeVerifier = localStorage.getItem('verifier')
     console.log('verifier=', codeVerifier)

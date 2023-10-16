@@ -28,7 +28,6 @@ export function LoginPage({ code, setCode }) {
     localStorage.setItem('verifier', verifier)
 
     const hash = window.location.hash
-    // let token = window.localStorage.getItem('token')
     let accessToken = getToken()
 
     if (!token && hash) {
