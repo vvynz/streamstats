@@ -58,7 +58,7 @@ export function LoginPage({ redirectURL, code, setCode }) {
     return code
   }
 
-  async function generateCodeChallenge(codeVerifiers) {
+  const generateCodeChallenge = async (codeVerifiers) => {
     const data = new TextEncoder().encode(codeVerifiers)
     const digest = await window.crypto.subtle.digest('SHA-256', data)
     return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
@@ -85,7 +85,8 @@ export function LoginPage({ redirectURL, code, setCode }) {
       code_challenge: codeChallenge,
     })
 
-    // window.location = 'https://accounts.spotify.com/authorize?' + args
+    // window.location
+    return 'https://accounts.spotify.com/authorize?' + args
   })
 
   async function getProfile(token) {

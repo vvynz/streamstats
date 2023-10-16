@@ -4,7 +4,7 @@ export function Hooks() {
   }
   // container for all the helper functions
   const hooks: Hook = {}
-  const redirectToAuthCodeFlow = (clientId: string) => {
+  const redirectToAuthCodeFlow = async (clientId: string) => {
     const verifier = generateCodeVerifier(128)
     const challenge = await generateCodeChallenge(verifier)
 
@@ -33,7 +33,7 @@ export function Hooks() {
     return code
   }
 
-  async function generateCodeChallenge(codeVerifiers: string) {
+  const generateCodeChallenge = async (codeVerifiers: string) => {
     const data = new TextEncoder().encode(codeVerifiers)
     const digest = await window.crypto.subtle.digest('SHA-256', data)
     return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
