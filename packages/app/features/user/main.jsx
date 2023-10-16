@@ -21,7 +21,7 @@ import { useAuth } from './useAuth'
 import axios from 'axios'
 
 export function Main({ code, clientID, redirectURL }) {
-  const accessToken = useAuth(code)
+  const [accessToken, setAccessToken] = useState('')
   const [user, setUser] = useState('RJ')
   const [verifier, setVerifier] = useState('')
   const [artists, setArtists] = useState([])
@@ -36,7 +36,6 @@ export function Main({ code, clientID, redirectURL }) {
     href: '/login',
   })
 
-  // console.log('code=', code)
   async function getAccessToken(clientID, code) {
     const params = new URLSearchParams()
     params.append('client_id', clientID)
@@ -67,18 +66,19 @@ export function Main({ code, clientID, redirectURL }) {
 
     const { data } = await axios.get('https://api.spotify.com/v1/search', {
       headers: {
-        Authorization: `Bearer ${verifier}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       params: {
         q: 'Jungkook',
         type: 'artist',
       },
     })
-    setArtists(data)
+    setArtists(data.artists)
   }
   console.log(artists)
 
   useEffect(() => {
+    setAccessToken(code)
     let codeVerifier
     window.addEventListener('scroll', () => {})
 
@@ -86,20 +86,7 @@ export function Main({ code, clientID, redirectURL }) {
     console.log('verifier=', codeVerifier)
 
     setVerifier(codeVerifier)
-
-    const token = getAccessToken(clientID, code)
-    console.log(token)
   }, [])
-  console.log(verifier)
-
-  const getToken = () => {
-    let urlParams = new URLSearchParams(window.location.hash.replace('#', '?'))
-    let token = urlParams.get('access_token')
-    return token
-  }
-
-  const aToken = getToken()
-  console.log('aToken=', aToken)
 
   return (
     <YStack f={1} p="$4" space>
