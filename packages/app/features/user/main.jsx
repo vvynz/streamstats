@@ -53,9 +53,18 @@ export function Main({ code, clientID, redirectURL }) {
         type: 'artist',
       },
     })
-    setArtists(data.artists)
+    setArtists(data.artists.items)
   }
   console.log(artists)
+
+  const getUser = async () => {
+    const { res } = await axios.get('https://api.spotify.com/v1/me', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+
+    setUser(res)
+  }
+  console.log('user', user)
 
   useEffect(() => {
     setAccessToken(code)

@@ -108,15 +108,6 @@ export function LoginPage({ code, setCode }) {
     return 'https://accounts.spotify.com/authorize?' + args
   })
 
-  async function getProfile(token) {
-    const result = await fetch('https://api.spotify.com/v1/me', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
-    })
-
-    return await result.json()
-  }
-
   const spotifyLogin = useLink({
     // href: 'https://accounts.spotify.com/en/login',
     // href: redirectToAuthCodeFlow(clientID, challenge),

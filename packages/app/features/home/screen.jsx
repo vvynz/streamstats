@@ -50,8 +50,6 @@ export function HomeScreen() {
     setCode(codeID)
   }, [])
 
-  console.log('from app', code)
-
   return code ? (
     <Main code={code} clientID={clientID} redirectURL={redirectURL} />
   ) : (
