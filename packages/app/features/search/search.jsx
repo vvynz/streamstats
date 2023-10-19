@@ -1,6 +1,6 @@
 import { H3, YStack, XStack } from '@my/ui'
 
-import { SongCard } from '../music/songcard'
+import { ArtistCard } from '../music/artistcard'
 
 export function Search({ artists }) {
   return (
@@ -8,7 +8,7 @@ export function Search({ artists }) {
       <H3>Search</H3>
       <YStack>
         {artists.map((artist) => (
-          <SongCard key={artist.id} song={artist} />
+          <ArtistCard key={artist.id} artist={artist} />
         ))}
       </YStack>
     </XStack>
