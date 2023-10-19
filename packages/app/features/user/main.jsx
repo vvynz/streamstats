@@ -2,6 +2,7 @@ import {
   Anchor,
   Button,
   H1,
+  H3,
   Paragraph,
   Separator,
   Sheet,
@@ -17,6 +18,7 @@ import { useLink } from 'solito/link'
 //Components
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
+import { Search } from '../search/search'
 import { useAuth } from './useAuth'
 import axios from 'axios'
 
@@ -103,6 +105,7 @@ export function Main({ code, clientID, redirectURL }) {
 
       <Overview />
       <Button onPress={(e) => searchArtist(e)}>Search</Button>
+      <Search artists={artists} />
 
       {/* <SheetDemo /> */}
     </YStack>
