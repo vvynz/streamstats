@@ -1,8 +1,11 @@
 import {
   Anchor,
   Button,
+  Form,
   H1,
   H3,
+  Input,
+  Label,
   Paragraph,
   Separator,
   Sheet,
@@ -105,6 +108,12 @@ export function Main({ code, clientID, redirectURL }) {
 
       <Overview />
       <Button onPress={(e) => searchArtist(e)}>Search</Button>
+      <YStack>
+        <Form>
+          <Label htmlFor="">Search:</Label>
+          <Input size="$3" defaultValue="Enter an artist" />
+        </Form>
+      </YStack>
       <Search artists={artists} />
 
       {/* <SheetDemo /> */}
