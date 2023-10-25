@@ -44,11 +44,17 @@ export function Overview({ recentlyPlayed }) {
     <>
       <H3>Overview</H3>
       <Separator />
-      <XStack jc="center" ai="center" space>
-        {recentlyPlayed.map((track) => (
-          // console.log(track)
-          <SongCard key={track.track.id} song={track.track.album} />
-        ))}
+      <XStack jc="center" ai="center" flex={2} flexWrap="wrap" space>
+        <YStack ai="center">
+          {recentlyPlayed.slice(0, 2).map((track) => (
+            <SongCard key={track.track.id} song={track.track.album} />
+          ))}
+        </YStack>
+        {/* <YStack ai="center">
+          {recentlyPlayed.slice(3, 5).map((track) => (
+            <SongCard key={track.track.id} song={track.track.album} />
+          ))}
+        </YStack> */}
       </XStack>
 
       <YStack display="flex" flexDirection="column" jc="space-evenly">

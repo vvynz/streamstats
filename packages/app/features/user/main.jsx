@@ -91,8 +91,8 @@ export function Main({ code, clientID, redirectURL }) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
-        console.log('res=', res)
-        setRecentlyPlayed(res.data.items)
+        // console.log('res=', res.data.items.splice(10))
+        setRecentlyPlayed(res.data.items.splice(10))
       })
       .catch((err) => {})
   }, [accessToken])
