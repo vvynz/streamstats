@@ -15,6 +15,7 @@ export function LoginPage({ code, setCode }) {
   const redirectURL = 'http://localhost:3000'
   const authEndPoint = 'https://accounts.spotify.com/authorize'
   const resType = 'token'
+  const scope = 'user-read-private user-read-email user-read-recently-played'
   const verifier = generateCodeVerifier(128)
 
   const getToken = () => {
@@ -111,7 +112,7 @@ export function LoginPage({ code, setCode }) {
   const spotifyLogin = useLink({
     // href: 'https://accounts.spotify.com/en/login',
     // href: redirectToAuthCodeFlow(clientID, challenge),
-    href: `${authEndPoint}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${resType}`,
+    href: `${authEndPoint}?client_id=${clientID}&redirect_uri=${redirectURL}&response_type=${resType}&scope=${scope}`,
   })
 
   const newSpotifyAccount = useLink({
