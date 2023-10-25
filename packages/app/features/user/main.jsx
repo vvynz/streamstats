@@ -30,6 +30,7 @@ export function Main({ code, clientID, redirectURL }) {
   const [user, setUser] = useState('RJ')
   const [verifier, setVerifier] = useState('')
   const [artists, setArtists] = useState([])
+  const [recentlyPlayed, setRecentlyPlayed] = useState([])
 
   // console.log('from main, AT=', accessToken)
 
@@ -81,7 +82,20 @@ export function Main({ code, clientID, redirectURL }) {
     console.log('verifier=', codeVerifier)
 
     setVerifier(codeVerifier)
-  }, [])
+  }, [accessToken])
+
+  useEffect(() => {
+    if (!recentlyPlayed) return
+    axios
+      .get('https://api.spotify.com/v1/me/player/recently-played', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        console.log('res=', res)
+        setRecentlyPlayed(res.data.items)
+      })
+      .catch((err) => {})
+  }, [accessToken])
 
   return (
     <YStack f={1} p="$4" space>
@@ -106,7 +120,7 @@ export function Main({ code, clientID, redirectURL }) {
         <UserIdHeader />
       </XStack>
 
-      <Overview />
+      <Overview recentlyPlayed={recentlyPlayed} />
       <Button onPress={(e) => searchArtist(e)}>Search</Button>
       <YStack>
         <Form>

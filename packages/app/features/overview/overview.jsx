@@ -38,7 +38,7 @@ const monthlyPlaylist = [
     name: 'Slow Dancing',
   },
 ]
-export function Overview() {
+export function Overview({ recentlyPlayed }) {
   return (
     <>
       <H3>Overview</H3>
