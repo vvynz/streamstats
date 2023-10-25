@@ -39,13 +39,15 @@ const monthlyPlaylist = [
   },
 ]
 export function Overview({ recentlyPlayed }) {
+  // console.log(recentlyPlayed.map((track) => console.log(track.track)))
   return (
     <>
       <H3>Overview</H3>
       <Separator />
       <XStack jc="center" ai="center" space>
-        {playlist.map((song) => (
-          <SongCard key={song.id} song={song} />
+        {recentlyPlayed.map((track) => (
+          // console.log(track)
+          <SongCard key={track.track.id} song={track.track.album} />
         ))}
       </XStack>
 
@@ -56,9 +58,9 @@ export function Overview({ recentlyPlayed }) {
         </XStack>
         <YStack ai="center" space>
           <H4>Your Top Songs This Month</H4>
-          {monthlyPlaylist.map((song) => (
+          {/* {monthlyPlaylist.map((song) => (
             <SongCard key={song.id} song={song} />
-          ))}
+          ))} */}
         </YStack>
       </YStack>
     </>
