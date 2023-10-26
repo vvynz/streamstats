@@ -50,11 +50,11 @@ export function Overview({ recentlyPlayed }) {
             <SongCard key={track.track.id} song={track.track.album} />
           ))}
         </YStack>
-        {/* <YStack ai="center">
+        <YStack ai="center">
           {recentlyPlayed.slice(3, 5).map((track) => (
             <SongCard key={track.track.id} song={track.track.album} />
           ))}
-        </YStack> */}
+        </YStack>
       </XStack>
 
       <YStack display="flex" flexDirection="column" jc="space-evenly">

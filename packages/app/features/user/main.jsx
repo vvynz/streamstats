@@ -74,6 +74,7 @@ export function Main({ code, clientID, redirectURL }) {
 
   useEffect(() => {
     setAccessToken(code)
+    localStorage.setItem('access_token', accessToken)
 
     let codeVerifier
     // window.addEventListener('scroll', () => {})
@@ -94,7 +95,9 @@ export function Main({ code, clientID, redirectURL }) {
         // console.log('res=', res.data.items.splice(10))
         setRecentlyPlayed(res.data.items.splice(10))
       })
-      .catch((err) => {})
+      .catch((err) => {
+        console.log(err.message)
+      })
   }, [accessToken])
 
   return (
