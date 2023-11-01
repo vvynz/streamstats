@@ -29,6 +29,7 @@ export function Main({ code, clientID, redirectURL }) {
   const [accessToken, setAccessToken] = useState('')
   const [user, setUser] = useState('RJ')
   const [verifier, setVerifier] = useState('')
+  const [searchVal, setSearchVal] = useState('')
   const [artists, setArtists] = useState([])
   const [recentlyPlayed, setRecentlyPlayed] = useState([])
 
@@ -70,7 +71,11 @@ export function Main({ code, clientID, redirectURL }) {
 
     setUser(res)
   }
-  console.log('user', user)
+  // console.log('user', user)
+
+  const setFormChange = (inputValue) => {
+    setSearchVal(inputValue)
+  }
 
   useEffect(() => {
     setAccessToken(code)
@@ -128,7 +133,7 @@ export function Main({ code, clientID, redirectURL }) {
       <YStack>
         <Form>
           <Label htmlFor="">Search:</Label>
-          <Input size="$3" defaultValue="Enter an artist" />
+          <Input size="$3" defaultValue="Enter an artist" value={searchVal} />
         </Form>
       </YStack>
       <Search artists={artists} />
