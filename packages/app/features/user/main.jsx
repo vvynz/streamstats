@@ -56,7 +56,7 @@ export function Main({ code, clientID, redirectURL }) {
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
-        q: 'Jungkook',
+        q: searchVal,
         type: 'artist',
       },
     })
@@ -105,6 +105,8 @@ export function Main({ code, clientID, redirectURL }) {
       })
   }, [accessToken])
 
+  console.log(searchVal)
+
   return (
     <YStack f={1} p="$4" space>
       <XStack jc="space-between">
@@ -133,7 +135,17 @@ export function Main({ code, clientID, redirectURL }) {
       <YStack>
         <Form>
           <Label htmlFor="">Search:</Label>
-          <Input size="$3" defaultValue="Enter an artist" value={searchVal} />
+          <XStack alignItems="center" space="$3">
+            <Input
+              size="$4"
+              defaultValue="Enter an artist"
+              value={searchVal}
+              onChange={(e) => setFormChange(e.target.value)}
+            />
+            <Button size="$4" onPress={searchArtist}>
+              Go
+            </Button>
+          </XStack>
         </Form>
       </YStack>
       <Search artists={artists} />
