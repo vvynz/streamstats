@@ -44,7 +44,7 @@ export function Overview({ recentlyPlayed }) {
     <>
       <H3>Overview</H3>
       <Separator />
-      <XStack jc="center" ai="center" flex={2} flexWrap="wrap" space>
+      <XStack jc="center" alignContent="baseline" flex={2} flexWrap="wrap" space>
         {/* <YStack ai="center"> */}
         {recentlyPlayed.slice(0, 6).map((track) => (
           <SongCard key={track.track.id} song={track.track.album} />
