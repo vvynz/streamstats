@@ -2,7 +2,7 @@ import { Avatar, Paragraph, YStack } from '@my/ui'
 
 export function SongCard({ song }) {
   const track = song
-  // console.log(song.images[0].url)
+  // console.log(song)
 
   return (
     <YStack
@@ -13,10 +13,9 @@ export function SongCard({ song }) {
       space
     >
       <Avatar size="$10">
-        {song.images?.map((img) => {
+        {song.album?.images?.map((img) => {
           return <Avatar.Image key={img.id} src={img.url} />
         })}
-        {/* <Avatar.Image key={song.images[0]} src={song.images[0].url} /> */}
         <Avatar.Fallback bc="#f6f986" />
       </Avatar>
       <YStack maxWidth={200}>
