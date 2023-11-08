@@ -4,9 +4,9 @@ import { ArtistCard } from '../music/artistcard'
 
 export function Search({ artists }) {
   return (
-    <XStack>
+    <XStack space>
       <H3>Search</H3>
-      <YStack>
+      <YStack display="flex" jc alignContent="center" space>
         {artists.map((artist) => (
           <ArtistCard key={artist.id} artist={artist} />
         ))}

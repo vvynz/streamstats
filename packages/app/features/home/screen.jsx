@@ -22,6 +22,8 @@ import { Main } from '../user/main'
 import { LoginPage } from '../login/login'
 import { Link } from '../link/link'
 
+import axios from 'axios'
+
 export function HomeScreen() {
   const [user, setUser] = useState('')
   const [code, setCode] = useState('')
@@ -37,6 +39,15 @@ export function HomeScreen() {
     href: '/login',
   })
 
+  const getUser = async () => {
+    const { data } = await axios.get('https://api.spotify.com/v1/me', {
+      headers: { Authorization: `Bearer ${code}` },
+    })
+
+    setUser(data.id)
+  }
+  console.log('user', user)
+
   useEffect(() => {
     let codeID
 
@@ -48,10 +59,11 @@ export function HomeScreen() {
     // new URLSearchParams(window.location.search).get('access_token')
     // window.localStorage.setItem('accessToken', codeID)
     setCode(codeID)
+    getUser()
   }, [])
 
   return code ? (
-    <Main code={code} clientID={clientID} redirectURL={redirectURL} />
+    <Main code={code} clientID={clientID} redirectURL={redirectURL} user={user} />
   ) : (
     <LoginPage code={code} setCode={setCode} redirectURL={redirectURL} />
   )

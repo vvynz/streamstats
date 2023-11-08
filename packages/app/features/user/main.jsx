@@ -27,19 +27,22 @@ import { Overview } from '../overview/overview'
 import { Search } from '../search/search'
 import { useAuth } from './useAuth'
 import axios from 'axios'
+import { setSourceMapRange } from 'typescript'
 
-export function Main({ code, clientID, redirectURL }) {
+export function Main({ code, clientID, redirectURL, user }) {
   const [accessToken, setAccessToken] = useState('')
-  const [user, setUser] = useState('RJ')
+  // const [user, setUser] = useState('RJ')
   const [verifier, setVerifier] = useState('')
   const [searchVal, setSearchVal] = useState('')
   const [artists, setArtists] = useState([])
   const [recentlyPlayed, setRecentlyPlayed] = useState([])
 
   // console.log('from main, AT=', accessToken)
+  console.log('user data=', user)
 
   const linkProps = useLink({
-    href: '/user/RJ',
+    href: `/user/${user}`,
+    // href: "/user/RJ"
   })
 
   const loginProps = useLink({
@@ -47,6 +50,7 @@ export function Main({ code, clientID, redirectURL }) {
   })
 
   const logout = () => {
+    setSourceMapRange('')
     setAccessToken('')
     window.localStorage.removeItem('access_token')
   }
@@ -60,21 +64,13 @@ export function Main({ code, clientID, redirectURL }) {
       },
       params: {
         q: searchVal,
-        type: 'artist',
+        type: 'track',
       },
     })
-    setArtists(data.artists.items)
+    console.log(data)
+    // setArtists(data.artists.items)
   }
   console.log(artists)
-
-  const getUser = async () => {
-    const { res } = await axios.get('https://api.spotify.com/v1/me', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    })
-
-    setUser(res)
-  }
-  // console.log('user', user)
 
   const setFormChange = (inputValue) => {
     setSearchVal(inputValue)
