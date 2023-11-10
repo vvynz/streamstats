@@ -136,7 +136,7 @@ export function Main({ code, clientID, redirectURL }) {
       </XStack>
 
       <XStack jc="center" ai="center" space>
-        <UserIdHeader />
+        <UserIdHeader code={code} user={user} />
       </XStack>
 
       <Overview recentlyPlayed={recentlyPlayed} />
