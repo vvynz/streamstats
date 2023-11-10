@@ -29,9 +29,9 @@ import { useAuth } from './useAuth'
 import axios from 'axios'
 import { setSourceMapRange } from 'typescript'
 
-export function Main({ code, clientID, redirectURL, user }) {
+export function Main({ code, clientID, redirectURL }) {
   const [accessToken, setAccessToken] = useState('')
-  // const [user, setUser] = useState('RJ')
+  const [user, setUser] = useState('RJ')
   const [verifier, setVerifier] = useState('')
   const [searchVal, setSearchVal] = useState('')
   const [artists, setArtists] = useState([])
@@ -42,15 +42,23 @@ export function Main({ code, clientID, redirectURL, user }) {
 
   const linkProps = useLink({
     href: `/user/${user}`,
-    // href: "/user/RJ"
+    // href: '/user/RJ',
   })
 
   const loginProps = useLink({
     href: '/login',
   })
 
+  const getUser = async () => {
+    const { data } = await axios.get('https://api.spotify.com/v1/me', {
+      headers: { Authorization: `Bearer ${code}` },
+    })
+
+    setUser(data.id)
+  }
+
   const logout = () => {
-    setSourceMapRange('')
+    // setUser('')
     setAccessToken('')
     window.localStorage.removeItem('access_token')
   }
@@ -87,6 +95,8 @@ export function Main({ code, clientID, redirectURL, user }) {
     console.log('verifier=', codeVerifier)
 
     setVerifier(codeVerifier)
+
+    getUser()
   }, [accessToken])
 
   useEffect(() => {
