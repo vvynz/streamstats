@@ -31,7 +31,12 @@ import { setSourceMapRange } from 'typescript'
 
 export function Main({ code, clientID, redirectURL }) {
   const [accessToken, setAccessToken] = useState('')
-  const [user, setUser] = useState('RJ')
+  const [user, setUser] = useState([
+    {
+      id: '',
+      images: [],
+    },
+  ])
   const [verifier, setVerifier] = useState('')
   const [searchVal, setSearchVal] = useState('')
   const [artists, setArtists] = useState([])
@@ -54,7 +59,7 @@ export function Main({ code, clientID, redirectURL }) {
       headers: { Authorization: `Bearer ${code}` },
     })
 
-    setUser(data.id)
+    setUser(data)
   }
 
   const logout = () => {
