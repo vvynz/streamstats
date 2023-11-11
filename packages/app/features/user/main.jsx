@@ -46,7 +46,7 @@ export function Main({ code, clientID, redirectURL }) {
   console.log('user data=', user)
 
   const linkProps = useLink({
-    href: `/user/${user}`,
+    href: `/user/${user.id}`,
     // href: '/user/RJ',
   })
 
@@ -63,7 +63,7 @@ export function Main({ code, clientID, redirectURL }) {
   }
 
   const logout = () => {
-    // setUser('')
+    setUser('')
     setAccessToken('')
     window.localStorage.removeItem('access_token')
   }
@@ -150,12 +150,7 @@ export function Main({ code, clientID, redirectURL }) {
         <Form>
           <Label htmlFor="">Search:</Label>
           <XStack alignItems="center" space="$3">
-            <Input
-              size="$4"
-              defaultValue="Enter an artist"
-              value={searchVal}
-              onChange={(e) => setFormChange(e.target.value)}
-            />
+            <Input size="$4" value={searchVal} onChange={(e) => setFormChange(e.target.value)} />
             <Button size="$4" onPress={searchArtist}>
               Go
             </Button>
