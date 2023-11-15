@@ -27,7 +27,6 @@ import { Overview } from '../overview/overview'
 import { Search } from '../search/search'
 import { useAuth } from './useAuth'
 import axios from 'axios'
-import { setSourceMapRange } from 'typescript'
 
 export function Main({ code, clientID, redirectURL }) {
   const [accessToken, setAccessToken] = useState('')
@@ -41,6 +40,7 @@ export function Main({ code, clientID, redirectURL }) {
   const [searchVal, setSearchVal] = useState('')
   const [artists, setArtists] = useState([])
   const [recentlyPlayed, setRecentlyPlayed] = useState([])
+  const [topMonthlyList, setTopMonthlyList] = useState([])
 
   // console.log('from main, AT=', accessToken)
   console.log('user data=', user)
@@ -117,6 +117,19 @@ export function Main({ code, clientID, redirectURL }) {
       .catch((err) => {
         console.log(err.message)
       })
+
+    if (!topMonthlyList)
+      return axios
+        .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => {
+          console.log(res.data)
+          setTopMonthlyList(res.data)
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
   }, [accessToken])
 
   console.log(searchVal)
