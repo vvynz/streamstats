@@ -105,7 +105,6 @@ export function Main({ code, clientID, redirectURL }) {
   }, [accessToken])
 
   useEffect(() => {
-    if (!recentlyPlayed) return
     axios
       .get('https://api.spotify.com/v1/me/player/recently-played', {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -117,22 +116,23 @@ export function Main({ code, clientID, redirectURL }) {
       .catch((err) => {
         console.log(err.message)
       })
-
-    if (!topMonthlyList)
-      return axios
-        .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => {
-          console.log(res.data)
-          setTopMonthlyList(res.data)
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
   }, [accessToken])
 
-  console.log(searchVal)
+  useEffect(() => {
+    axios
+      .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        // console.log('top monthly =', res.data)
+        setTopMonthlyList(res.data.items)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }, [])
+
+  console.log(topMonthlyList)
 
   return (
     <YStack f={1} p="$4" space>
@@ -157,7 +157,7 @@ export function Main({ code, clientID, redirectURL }) {
         <UserIdHeader code={code} user={user} />
       </XStack>
 
-      <Overview recentlyPlayed={recentlyPlayed} />
+      <Overview recentlyPlayed={recentlyPlayed} topMonthlyList={topMonthlyList} />
       <Button onPress={(e) => searchArtist(e)}>Search</Button>
       <YStack>
         <Form>
