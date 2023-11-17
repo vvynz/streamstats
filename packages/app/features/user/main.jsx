@@ -119,17 +119,21 @@ export function Main({ code, clientID, redirectURL }) {
   }, [accessToken])
 
   useEffect(() => {
-    axios
-      .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        // console.log('top monthly =', res.data)
-        setTopMonthlyList(res.data.items)
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
+    const getTopMonthlyList = async () => {
+      await axios
+        .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => {
+          // console.log('top monthly =', res.data)
+          setTopMonthlyList(res.data.items)
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
+    }
+
+    getTopMonthlyList()
   }, [])
 
   console.log(topMonthlyList)
