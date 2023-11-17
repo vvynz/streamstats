@@ -43,7 +43,7 @@ export function Main({ code, clientID, redirectURL }) {
   const [topMonthlyList, setTopMonthlyList] = useState([])
 
   // console.log('from main, AT=', accessToken)
-  console.log('user data=', user)
+  // console.log('user data=', user)
 
   const linkProps = useLink({
     href: `/user/${user.id}`,
@@ -105,20 +105,20 @@ export function Main({ code, clientID, redirectURL }) {
   }, [accessToken])
 
   useEffect(() => {
-    axios
-      .get('https://api.spotify.com/v1/me/player/recently-played', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        // console.log('res=', res.data.items.splice(10))
-        setRecentlyPlayed(res.data.items.splice(10))
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
-  }, [accessToken])
+    const getRecentlyPlayedList = async () => {
+      await axios
+        .get('https://api.spotify.com/v1/me/player/recently-played', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => {
+          // console.log('res=', res.data.items.splice(10))
+          setRecentlyPlayed(res.data.items.splice(10))
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
+    }
 
-  useEffect(() => {
     const getTopMonthlyList = async () => {
       await axios
         .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
@@ -133,8 +133,9 @@ export function Main({ code, clientID, redirectURL }) {
         })
     }
 
+    getRecentlyPlayedList()
     getTopMonthlyList()
-  }, [])
+  }, [accessToken])
 
   console.log(topMonthlyList)
 
