@@ -89,12 +89,39 @@ export function Main({ code, clientID, redirectURL }) {
     setSearchVal(inputValue)
   }
 
+  const getRecentlyPlayedList = async () => {
+    await axios
+      .get('https://api.spotify.com/v1/me/player/recently-played', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        // console.log('res=', res.data.items.splice(10))
+        setRecentlyPlayed(res.data.items.splice(10))
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }
+
+  const getTopMonthlyList = async () => {
+    await axios
+      .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        // console.log('top monthly =', res.data)
+        setTopMonthlyList(res.data.items)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
+  }
+
   useEffect(() => {
     setAccessToken(code)
     localStorage.setItem('access_token', accessToken)
 
     let codeVerifier
-    // window.addEventListener('scroll', () => {})
 
     codeVerifier = localStorage.getItem('verifier')
     console.log('verifier=', codeVerifier)
@@ -102,37 +129,6 @@ export function Main({ code, clientID, redirectURL }) {
     setVerifier(codeVerifier)
 
     getUser()
-  }, [accessToken])
-
-  useEffect(() => {
-    const getRecentlyPlayedList = async () => {
-      await axios
-        .get('https://api.spotify.com/v1/me/player/recently-played', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => {
-          // console.log('res=', res.data.items.splice(10))
-          setRecentlyPlayed(res.data.items.splice(10))
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
-    }
-
-    const getTopMonthlyList = async () => {
-      await axios
-        .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => {
-          // console.log('top monthly =', res.data)
-          setTopMonthlyList(res.data.items)
-        })
-        .catch((err) => {
-          console.log(err.message)
-        })
-    }
-
     getRecentlyPlayedList()
     getTopMonthlyList()
   }, [accessToken])

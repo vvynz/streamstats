@@ -44,10 +44,6 @@ export function HomeScreen() {
   useEffect(() => {
     let codeID
 
-    window.addEventListener('scroll', () => {
-      console.log('scroll!')
-    })
-
     codeID = localStorage.getItem('access_token')
     // new URLSearchParams(window.location.search).get('access_token')
     // window.localStorage.setItem('accessToken', codeID)
