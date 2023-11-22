@@ -2,7 +2,7 @@ import { Avatar, Paragraph, YStack } from '@my/ui'
 
 export function SongCard({ song }) {
   const track = song
-  console.log(song.album)
+  // console.log(song)
 
   return (
     <YStack
