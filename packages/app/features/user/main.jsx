@@ -41,6 +41,7 @@ export function Main({ code, clientID, redirectURL }) {
   const [artists, setArtists] = useState([])
   const [recentlyPlayed, setRecentlyPlayed] = useState([])
   const [topMonthlyList, setTopMonthlyList] = useState([])
+  const [error, setError] = useState('')
 
   // console.log('from main, AT=', accessToken)
   // console.log('user data=', user)
@@ -77,11 +78,16 @@ export function Main({ code, clientID, redirectURL }) {
       },
       params: {
         q: searchVal,
-        type: 'track',
+        type: 'artist',
       },
     })
+
+    if (!searchVal) {
+      setError('Please enter an artist!')
+    }
+
     console.log(data)
-    // setArtists(data.artists.items)
+    setArtists(data.artists.items)
   }
   console.log(artists)
 
@@ -163,6 +169,7 @@ export function Main({ code, clientID, redirectURL }) {
       <YStack>
         <Form>
           <Label htmlFor="">Search:</Label>
+          {error ? <Text>{error}</Text> : null}
           <XStack alignItems="center" space="$3">
             <Input size="$4" value={searchVal} onChange={(e) => setFormChange(e.target.value)} />
             <Button size="$4" onPress={searchArtist}>
