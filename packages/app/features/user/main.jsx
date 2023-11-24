@@ -72,22 +72,23 @@ export function Main({ code, clientID, redirectURL }) {
   const searchArtist = async (e) => {
     e.preventDefault()
 
-    const { data } = await axios.get('https://api.spotify.com/v1/search', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      params: {
-        q: searchVal,
-        type: 'artist',
-      },
-    })
-
-    if (!searchVal) {
-      setError('Please enter an artist!')
-    }
-
-    console.log(data)
-    setArtists(data.artists.items)
+    await axios
+      .get('https://api.spotify.com/v1/search', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          q: searchVal,
+          type: 'artist',
+        },
+      })
+      .then((res) => {
+        setError('')
+        setArtists(res.data.artists.items)
+      })
+      .catch((err) => {
+        setError('Error: Enter an artist')
+      })
   }
   console.log(artists)
 
