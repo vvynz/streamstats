@@ -100,7 +100,7 @@ export function Main({ code, clientID, redirectURL }) {
         setRecentlyPlayed(res.data.items.splice(10))
       })
       .catch((err) => {
-        console.log(err.message)
+        setError(err.message)
       })
   }
 
@@ -113,7 +113,7 @@ export function Main({ code, clientID, redirectURL }) {
         setTopMonthlyList(res.data.items)
       })
       .catch((err) => {
-        console.log(err.message)
+        setError(err.message)
       })
   }
 
