@@ -1,4 +1,4 @@
-import { Avatar, H3, H4, Paragraph, Separator, XStack, YStack } from '@my/ui'
+import { Avatar, H2, H3, H4, Paragraph, Separator, XStack, YStack } from '@my/ui'
 
 import { SongCard } from '../music/songcard'
 
@@ -43,7 +43,7 @@ export function Overview({ recentlyPlayed, topMonthlyList }) {
 
   return (
     <>
-      <H3>Overview</H3>
+      <H2>Overview</H2>
       <Separator />
       <XStack jc="center" alignContent="baseline" flex={2} flexWrap="wrap" space>
         {/* <YStack ai="center"> */}
