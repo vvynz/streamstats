@@ -40,7 +40,7 @@ const monthlyPlaylist = [
 ]
 export function Overview({ recentlyPlayed, topMonthlyList }) {
   // console.log(recentlyPlayed.map((track) => console.log(track.track)))
-  console.log(recentlyPlayed)
+
   return (
     <>
       <H3>Overview</H3>

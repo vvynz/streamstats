@@ -43,12 +43,8 @@ export function Main({ code, clientID, redirectURL }) {
   const [topMonthlyList, setTopMonthlyList] = useState([])
   const [error, setError] = useState('')
 
-  // console.log('from main, AT=', accessToken)
-  // console.log('user data=', user)
-
   const linkProps = useLink({
     href: `/user/${user.id}`,
-    // href: '/user/RJ',
   })
 
   const loginProps = useLink({
@@ -90,7 +86,6 @@ export function Main({ code, clientID, redirectURL }) {
         setError('Error: Enter an artist')
       })
   }
-  console.log(artists)
 
   const setFormChange = (inputValue) => {
     setSearchVal(inputValue)
@@ -102,7 +97,6 @@ export function Main({ code, clientID, redirectURL }) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
-        // console.log('res=', res.data.items.splice(10))
         setRecentlyPlayed(res.data.items.splice(10))
       })
       .catch((err) => {
@@ -116,7 +110,6 @@ export function Main({ code, clientID, redirectURL }) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
-        // console.log('top monthly =', res.data)
         setTopMonthlyList(res.data.items)
       })
       .catch((err) => {
@@ -131,7 +124,7 @@ export function Main({ code, clientID, redirectURL }) {
     let codeVerifier
 
     codeVerifier = localStorage.getItem('verifier')
-    console.log('verifier=', codeVerifier)
+    // console.log('verifier=', codeVerifier)
 
     setVerifier(codeVerifier)
 
@@ -139,8 +132,6 @@ export function Main({ code, clientID, redirectURL }) {
     getRecentlyPlayedList()
     getTopMonthlyList()
   }, [accessToken])
-
-  console.log(topMonthlyList)
 
   return (
     <YStack f={1} p="$4" space>
@@ -157,7 +148,6 @@ export function Main({ code, clientID, redirectURL }) {
           ) : (
             <Button {...loginProps}>Login</Button>
           )}
-          {/* <Link href={`/user/RJ`} text="Login" /> */}
         </XStack>
       </XStack>
 
@@ -166,7 +156,6 @@ export function Main({ code, clientID, redirectURL }) {
       </XStack>
 
       <Overview recentlyPlayed={recentlyPlayed} topMonthlyList={topMonthlyList} />
-      <Button onPress={(e) => searchArtist(e)}>Search</Button>
       <YStack>
         <Form>
           <Label htmlFor="">Search:</Label>
