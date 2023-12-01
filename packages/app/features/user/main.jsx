@@ -97,6 +97,7 @@ export function Main({ code, clientID, redirectURL }) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
+        setError('')
         setRecentlyPlayed(res.data.items.splice(10))
       })
       .catch((err) => {
@@ -110,6 +111,7 @@ export function Main({ code, clientID, redirectURL }) {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
+        setError('')
         setTopMonthlyList(res.data.items)
       })
       .catch((err) => {
