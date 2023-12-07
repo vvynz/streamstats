@@ -159,38 +159,52 @@ export function Main({ code, clientID, redirectURL }) {
 
       <Overview recentlyPlayed={recentlyPlayed} topMonthlyList={topMonthlyList} />
       <YStack>
-        <Form>
+        <XStack maxWidth="100vw" space>
           <Label htmlFor="">Search:</Label>
-          {error ? <Text>{error}</Text> : null}
-          <XStack alignItems="center" space="$3">
-            <Select defaultValue="artist">
-              <Select.Trigger>
-                <Select.Value placeholder="search..." />
-              </Select.Trigger>
-              <Select.Content>
-                <Select.ScrollUpButton width="100%" height="$3">
-                  <YStack zIndex={10}>
-                    <ChevronUp size={20} />
-                  </YStack>
-                </Select.ScrollUpButton>
-                <Select.Viewport minWidth={200}>
-                  <Select.Group>
-                    <Select.Item>
-                      <Select.ItemText>artist</Select.ItemText>
-                    </Select.Item>
-                    <Select.Item>
-                      <Select.ItemText>song</Select.ItemText>
-                    </Select.Item>
-                  </Select.Group>
-                </Select.Viewport>
-              </Select.Content>
-            </Select>
-            <Input size="$4" value={searchVal} onChange={(e) => setFormChange(e.target.value)} />
-            <Button size="$4" onPress={searchArtist}>
-              Go
-            </Button>
-          </XStack>
-        </Form>
+          <Select defaultValue="artist">
+            <Select.Trigger>
+              <Select.Value placeholder="search..." />
+            </Select.Trigger>
+            <Select.Content zIndex={200}>
+              <Select.ScrollUpButton
+                alignItems="center"
+                justifyContent="center"
+                position="relative"
+                width="100%"
+                height="$2"
+              >
+                <YStack zIndex={10}>
+                  <ChevronUp backgroundColor="white" size={20} />
+                </YStack>
+              </Select.ScrollUpButton>
+              <Select.Viewport maxWidth="50%">
+                <Select.Group>
+                  <Select.Item>
+                    <Select.ItemText>artist</Select.ItemText>
+                  </Select.Item>
+                  <Select.Item>
+                    <Select.ItemText>song</Select.ItemText>
+                  </Select.Item>
+                </Select.Group>
+              </Select.Viewport>
+              <Select.ScrollDownButton backgroundColor="white" />
+            </Select.Content>
+          </Select>
+          <Form maxWidth={500}>
+            {error ? <Text>{error}</Text> : null}
+            <XStack alignItems="center" space="$3">
+              <Input
+                width="100%"
+                size="$4"
+                value={searchVal}
+                onChange={(e) => setFormChange(e.target.value)}
+              />
+              <Button size="$4" onPress={searchArtist}>
+                Go
+              </Button>
+            </XStack>
+          </Form>
+        </XStack>
       </YStack>
       <Search artists={artists} />
 
