@@ -162,7 +162,7 @@ export function Main({ code, clientID, redirectURL }) {
         <XStack maxWidth="100vw" space>
           <Label htmlFor="">Search:</Label>
           <Select defaultValue="artist">
-            <Select.Trigger>
+            <Select.Trigger maxWidth="30%" iconAfter={ChevronDown}>
               <Select.Value placeholder="search..." />
             </Select.Trigger>
             <Select.Content zIndex={200}>
@@ -174,10 +174,10 @@ export function Main({ code, clientID, redirectURL }) {
                 height="$2"
               >
                 <YStack zIndex={10}>
-                  <ChevronUp backgroundColor="white" size={20} />
+                  <ChevronUp backgroundColor="white" />
                 </YStack>
               </Select.ScrollUpButton>
-              <Select.Viewport maxWidth="50%">
+              <Select.Viewport>
                 <Select.Group>
                   <Select.Item>
                     <Select.ItemText>artist</Select.ItemText>
@@ -187,14 +187,14 @@ export function Main({ code, clientID, redirectURL }) {
                   </Select.Item>
                 </Select.Group>
               </Select.Viewport>
-              <Select.ScrollDownButton backgroundColor="white" />
+              <Select.ScrollDownButton />
             </Select.Content>
           </Select>
-          <Form maxWidth={500}>
+          <Form>
             {error ? <Text>{error}</Text> : null}
             <XStack alignItems="center" space="$3">
               <Input
-                width="100%"
+                width={500}
                 size="$4"
                 value={searchVal}
                 onChange={(e) => setFormChange(e.target.value)}
