@@ -2,42 +2,6 @@ import { Avatar, H2, H3, H4, Paragraph, Separator, XStack, YStack } from '@my/ui
 
 import { SongCard } from '../music/songcard'
 
-const playlist = [
-  {
-    id: 1,
-    image: '',
-    name: 'Seven (ft. Latto)',
-  },
-  { id: 2, image: '', name: 'People' },
-  {
-    id: 3,
-    image: '',
-    name: 'Take Two',
-  },
-  {
-    id: 4,
-    image: '',
-    name: 'More',
-  },
-]
-
-const monthlyPlaylist = [
-  {
-    id: 1,
-    image: '',
-    name: 'Seven (ft. Latto)',
-  },
-  {
-    id: 2,
-    image: '',
-    name: 'For Us',
-  },
-  {
-    id: 3,
-    image: '',
-    name: 'Slow Dancing',
-  },
-]
 export function Overview({ recentlyPlayed, topMonthlyList }) {
   // console.log(recentlyPlayed.map((track) => console.log(track.track)))
 

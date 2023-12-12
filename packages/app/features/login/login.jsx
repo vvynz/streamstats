@@ -7,10 +7,6 @@ import { useLink } from 'solito/link'
 export function LoginPage({ code, setCode }) {
   const [token, setToken] = useState('')
 
-  const home = useLink({
-    href: '/',
-  })
-
   const clientID = '2b521e63e3ff470fadd0ad967629e3cf'
   const redirectURL = 'http://localhost:3000'
   const authEndPoint = 'https://accounts.spotify.com/authorize'
@@ -44,13 +40,6 @@ export function LoginPage({ code, setCode }) {
     setToken(accessToken)
   }, [])
   console.log('token=', token)
-
-  // if (code) {
-  //   // const accessToken = getAccessToken(clientID, code).then((data) => console.log(data))
-  //   // const profile = getProfile(accessToken)
-  //   // console.log(profile)
-  //   console.log('There is a code???')
-  // }
 
   const generateCodeChallenge = async (codeVerifiers) => {
     const data = new TextEncoder().encode(codeVerifiers)
