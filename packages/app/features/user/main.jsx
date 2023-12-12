@@ -16,7 +16,7 @@ import {
   YStack,
   ZStack,
 } from '@my/ui'
-import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
+import { Check, ChevronDown, ChevronUp, Home } from '@tamagui/lucide-icons'
 
 import React, { useState, useEffect } from 'react'
 import { useLink } from 'solito/link'
@@ -42,6 +42,10 @@ export function Main({ code, clientID, redirectURL }) {
   const [recentlyPlayed, setRecentlyPlayed] = useState([])
   const [topMonthlyList, setTopMonthlyList] = useState([])
   const [error, setError] = useState('')
+
+  const home = useLink({
+    href: '/',
+  })
 
   const linkProps = useLink({
     href: `/user/${user.id}`,
@@ -138,10 +142,11 @@ export function Main({ code, clientID, redirectURL }) {
   return (
     <YStack f={1} p="$4" space>
       <XStack jc="space-between">
-        <H1>Stream Stats</H1>
+        <H1 {...home}>Stream Stats</H1>
         <XStack>
           {user ? (
-            <XStack>
+            <XStack space>
+              <Button {...home} icon={Home}></Button>
               <Button {...linkProps}>Go to User</Button>
               <Button onPress={() => logout()} {...loginProps}>
                 Logout
@@ -159,7 +164,7 @@ export function Main({ code, clientID, redirectURL }) {
 
       <Overview recentlyPlayed={recentlyPlayed} topMonthlyList={topMonthlyList} />
       <YStack>
-        <XStack maxWidth="100vw" space>
+        <XStack jc="center" space>
           <Label htmlFor="">Search:</Label>
           <Select defaultValue="artist">
             <Select.Trigger maxWidth="30%" iconAfter={ChevronDown}>

@@ -123,7 +123,6 @@ export function LoginPage({ code, setCode }) {
     <YStack>
       <XStack p="$4" jc="space-between" ai="baseline">
         <H1>stream stats</H1>
-        <Button {...home} icon={Home}></Button>
       </XStack>
       <YStack ai="center" width="100%" maxWidth={500} space>
         <H3>Welcome to stream stats</H3>
