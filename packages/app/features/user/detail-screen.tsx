@@ -1,4 +1,4 @@
-import { Button, Paragraph, YStack } from '@my/ui'
+import { Avatar, Button, Paragraph, XStack, YStack } from '@my/ui'
 import { ChevronLeft } from '@tamagui/lucide-icons'
 import React, { useState, useEffect } from 'react'
 import { createParam } from 'solito'
@@ -13,14 +13,22 @@ export function UserDetailScreen() {
     href: '/',
   })
 
-  console.log(accessToken)
+  const profileImg =
+    'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
 
   return (
     <YStack f={1} jc="center" ai="center" space>
-      <Paragraph ta="center" fow="700">{`User ID: ${id}`}</Paragraph>
-      <Button {...link} icon={ChevronLeft}>
-        Go Home
-      </Button>
+      <XStack>
+        <Button {...link} icon={ChevronLeft}>
+          Go Home
+        </Button>
+      </XStack>
+      <XStack jc="space-evenly" ai="center" space>
+        <Avatar circular size="$15">
+          <Avatar.Image src={profileImg} />
+        </Avatar>
+        <Paragraph fontSize="$10" ta="center" fow="700">{`User ID: ${id}`}</Paragraph>
+      </XStack>
     </YStack>
   )
 }
