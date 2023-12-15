@@ -1,5 +1,6 @@
-import { Avatar, Button, Paragraph, XStack, YStack } from '@my/ui'
+import { Avatar, Button, Paragraph, Text, XStack, YStack } from '@my/ui'
 import { ChevronLeft } from '@tamagui/lucide-icons'
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { createParam } from 'solito'
 import { useLink } from 'solito/link'
@@ -16,6 +17,26 @@ export function UserDetailScreen() {
   const profileImg =
     'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
 
+  const followers = 7
+  const following = 59
+
+  const getProfile = async () => {
+    await axios
+      .get(
+        `
+    https://api.spotify.com/v1/users/${id}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
     <YStack f={1} jc="center" ai="center" space>
       <XStack>
@@ -28,6 +49,11 @@ export function UserDetailScreen() {
           <Avatar.Image src={profileImg} />
         </Avatar>
         <Paragraph fontSize="$10" ta="center" fow="700">{`User ID: ${id}`}</Paragraph>
+      </XStack>
+      <XStack alignSelf="center">
+        <Text>
+          {followers} follower | {following} following
+        </Text>
       </XStack>
     </YStack>
   )
