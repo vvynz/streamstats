@@ -34,6 +34,9 @@ export function Main({ code, clientID, redirectURL }) {
     {
       id: '',
       images: [],
+      followers: {
+        total: 0,
+      },
     },
   ])
   const [verifier, setVerifier] = useState('')
@@ -59,7 +62,7 @@ export function Main({ code, clientID, redirectURL }) {
     const { data } = await axios.get('https://api.spotify.com/v1/me', {
       headers: { Authorization: `Bearer ${code}` },
     })
-
+    console.log('user data=', data)
     setUser(data)
   }
 

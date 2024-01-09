@@ -13,6 +13,15 @@ export function UserDetailScreen() {
   const link = useLink({
     href: '/',
   })
+  const [userData, setUserData] = useState([
+    {
+      id: '',
+      images: [],
+      followers: {
+        total: 0,
+      },
+    },
+  ])
 
   const profileImg =
     'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
@@ -36,6 +45,10 @@ export function UserDetailScreen() {
         console.log(err)
       })
   }
+
+  useEffect(() => {
+    getProfile()
+  }, [])
 
   return (
     <YStack f={1} jc="center" ai="center" space>
