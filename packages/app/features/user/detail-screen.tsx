@@ -23,6 +23,8 @@ export function UserDetailScreen() {
     },
   ])
 
+  console.log(accessToken)
+
   const profileImg =
     'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
 
@@ -33,13 +35,14 @@ export function UserDetailScreen() {
     await axios
       .get(
         `
-    https://api.spotify.com/v1/users/${id}`,
+    https://api.spotify.com/v1/me`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       )
       .then((res) => {
         console.log(res)
+        setUserData(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -48,7 +51,7 @@ export function UserDetailScreen() {
 
   useEffect(() => {
     getProfile()
-  }, [])
+  }, [accessToken])
 
   return (
     <YStack f={1} jc="center" ai="center" space>

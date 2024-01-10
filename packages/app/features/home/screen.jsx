@@ -39,7 +39,7 @@ export function HomeScreen() {
     href: '/login',
   })
 
-  // console.log('user', user)
+  console.log('code?', code)
 
   useEffect(() => {
     let codeID
