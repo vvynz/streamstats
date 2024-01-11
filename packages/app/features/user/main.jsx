@@ -128,7 +128,7 @@ export function Main({ code, clientID, redirectURL }) {
 
   useEffect(() => {
     setAccessToken(code)
-    localStorage.setItem('access_token', accessToken)
+    // localStorage.setItem('access_token', accessToken)
 
     let codeVerifier
 

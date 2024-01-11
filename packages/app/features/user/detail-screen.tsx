@@ -8,7 +8,7 @@ import { useLink } from 'solito/link'
 const { useParam } = createParam<{ id: string }>()
 
 export function UserDetailScreen() {
-  const [accessToken, setAccessToken] = useState('' || localStorage.getItem('accessToken'))
+  const [accessToken, setAccessToken] = useState('' || localStorage.getItem('access_token'))
   const [id] = useParam('id')
   const link = useLink({
     href: '/',
