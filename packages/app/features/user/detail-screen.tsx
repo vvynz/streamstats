@@ -23,8 +23,6 @@ export function UserDetailScreen() {
     },
   ])
 
-  console.log(accessToken)
-
   const profileImg =
     'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
 
@@ -35,7 +33,7 @@ export function UserDetailScreen() {
     await axios
       .get(
         `
-    https://api.spotify.com/v1/me`,
+    https://api.spotify.com/v1/users/${id}`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
@@ -49,10 +47,23 @@ export function UserDetailScreen() {
       })
   }
 
+  const getFollowedList = async () => {
+    await axios
+      .get(`https://api.spotify.com/v1/me/following?type=artist`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   useEffect(() => {
     getProfile()
   }, [accessToken])
-
+  // console.log(userData.followers)
   return (
     <YStack f={1} jc="center" ai="center" space>
       <XStack>
