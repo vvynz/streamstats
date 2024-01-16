@@ -39,7 +39,7 @@ export function UserDetailScreen() {
         }
       )
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         setUserData(res.data)
       })
       .catch((err) => {
@@ -62,6 +62,7 @@ export function UserDetailScreen() {
 
   useEffect(() => {
     getProfile()
+    getFollowedList()
   }, [accessToken])
   // console.log(userData.followers)
   return (

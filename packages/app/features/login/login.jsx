@@ -80,7 +80,7 @@ export function LoginPage({ code, setCode }) {
 
   generateCodeChallenge(codeVerifier).then((codeChallenge) => {
     let state = generateCodeVerifier(16)
-    let scope = 'user-read-currently-playing user-top-read user-library-read'
+    let scope = 'user-read-currently-playing user-top-read user-library-read user-follow-read'
 
     localStorage.setItem('code_verifier', codeVerifier)
 
