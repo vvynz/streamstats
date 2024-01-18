@@ -26,6 +26,7 @@ import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 import { Search } from '../search/search'
 import { useAuth } from './useAuth'
+import { logout } from '../hooks/hooks'
 import axios from 'axios'
 
 export function Main({ code, clientID, redirectURL }) {

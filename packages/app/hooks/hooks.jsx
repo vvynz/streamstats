@@ -1,9 +1,9 @@
-export function Hooks() {
-  type Hook = {
-    function?: () => void
-  }
+export default function Hooks() {
+  // type Hook = {
+  //   function?: () => void
+  // }
   // container for all the helper functions
-  const hooks: Hook = {}
+  const hooks = {}
   const redirectToAuthCodeFlow = async (clientId: string) => {
     const verifier = generateCodeVerifier(128)
     const challenge = await generateCodeChallenge(verifier)
@@ -97,6 +97,13 @@ export function Hooks() {
     .catch((error) => {
       console.error('Error', error)
     })
+
+  const logout = (userState, code) => {
+    userState('')
+    code('')
+    window.localStorage.removeItem('access_token')
+  }
+  hooks.logout = logout
 
   return hooks
 }
