@@ -5,13 +5,20 @@ import React, { useState, useEffect } from 'react'
 import { createParam } from 'solito'
 import { useLink } from 'solito/link'
 
+import hooks from 'app/hooks/hooks'
+
 const { useParam } = createParam<{ id: string }>()
 
 export function UserDetailScreen() {
   const [accessToken, setAccessToken] = useState('' || localStorage.getItem('access_token'))
   const [id] = useParam('id')
+
   const link = useLink({
     href: '/',
+  })
+
+  const loginProps = useLink({
+    href: '/login',
   })
   const [userData, setUserData] = useState([
     {
@@ -22,6 +29,8 @@ export function UserDetailScreen() {
       },
     },
   ])
+
+  const logout = hooks()
 
   const profileImg =
     'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
@@ -67,9 +76,12 @@ export function UserDetailScreen() {
   // console.log(userData.followers)
   return (
     <YStack f={1} jc="center" ai="center" space>
-      <XStack>
+      <XStack space>
         <Button {...link} icon={ChevronLeft}>
           Go Home
+        </Button>
+        <Button onPress={() => logout(setUserData, setAccessToken)} {...loginProps}>
+          Logout
         </Button>
       </XStack>
       <XStack jc="space-evenly" ai="center" space>

@@ -69,12 +69,6 @@ export function Main({ code, clientID, redirectURL }) {
     setUser(data)
   }
 
-  // const logout = () => {
-  //   setUser('')
-  //   setAccessToken('')
-  //   window.localStorage.removeItem('access_token')
-  // }
-
   const searchArtist = async (e) => {
     e.preventDefault()
 
@@ -131,7 +125,6 @@ export function Main({ code, clientID, redirectURL }) {
 
   useEffect(() => {
     setAccessToken(code)
-    // localStorage.setItem('access_token', accessToken)
 
     let codeVerifier
 
