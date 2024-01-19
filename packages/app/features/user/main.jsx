@@ -26,7 +26,7 @@ import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 import { Search } from '../search/search'
 import { useAuth } from './useAuth'
-import { logout } from '../hooks/hooks'
+import hooks from 'app/hooks/hooks'
 import axios from 'axios'
 
 export function Main({ code, clientID, redirectURL }) {
@@ -46,6 +46,8 @@ export function Main({ code, clientID, redirectURL }) {
   const [recentlyPlayed, setRecentlyPlayed] = useState([])
   const [topMonthlyList, setTopMonthlyList] = useState([])
   const [error, setError] = useState('')
+
+  const { logout } = hooks()
 
   const home = useLink({
     href: '/',
@@ -67,11 +69,11 @@ export function Main({ code, clientID, redirectURL }) {
     setUser(data)
   }
 
-  const logout = () => {
-    setUser('')
-    setAccessToken('')
-    window.localStorage.removeItem('access_token')
-  }
+  // const logout = () => {
+  //   setUser('')
+  //   setAccessToken('')
+  //   window.localStorage.removeItem('access_token')
+  // }
 
   const searchArtist = async (e) => {
     e.preventDefault()
@@ -152,7 +154,7 @@ export function Main({ code, clientID, redirectURL }) {
             <XStack space>
               <Button {...home} icon={Home}></Button>
               <Button {...linkProps}>Go to User</Button>
-              <Button onPress={() => logout()} {...loginProps}>
+              <Button onPress={() => logout(setUser, setAccessToken)} {...loginProps}>
                 Logout
               </Button>
             </XStack>
