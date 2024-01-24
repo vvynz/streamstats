@@ -29,13 +29,13 @@ export function UserDetailScreen() {
       },
     },
   ])
+  const [followers, setFollowers] = useState(0)
 
   const logout = hooks()
 
   const profileImg =
     'https://store.linefriends.com/cdn/shop/files/BT21BABYMLBBEANDOLLRJ_4589419378918_1200x1200_1_1_400x.jpg?v=1682362586'
 
-  const followers = 7
   const following = 59
 
   const getProfile = async () => {
@@ -48,8 +48,8 @@ export function UserDetailScreen() {
         }
       )
       .then((res) => {
-        // console.log(res)
         setUserData(res.data)
+        setFollowers(res.data.followers.total)
       })
       .catch((err) => {
         console.log(err)
@@ -73,7 +73,7 @@ export function UserDetailScreen() {
     getProfile()
     getFollowedList()
   }, [accessToken])
-  // console.log(userData.followers)
+
   return (
     <YStack f={1} jc="center" ai="center" space>
       <XStack space>
