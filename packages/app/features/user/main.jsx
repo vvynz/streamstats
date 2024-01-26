@@ -124,19 +124,22 @@ export function Main({ code, clientID, redirectURL }) {
   }
 
   useEffect(() => {
-    setAccessToken(code)
+    if (!accessToken) {
+      setAccessToken(code)
 
-    let codeVerifier
+      let codeVerifier
 
-    codeVerifier = localStorage.getItem('verifier')
-    // console.log('verifier=', codeVerifier)
+      codeVerifier = localStorage.getItem('verifier')
+      // console.log('verifier=', codeVerifier)
 
-    setVerifier(codeVerifier)
-
-    getUser()
-    getRecentlyPlayedList()
-    getTopMonthlyList()
+      setVerifier(codeVerifier)
+    } else {
+      getUser()
+      getRecentlyPlayedList()
+      getTopMonthlyList()
+    }
   }, [accessToken])
+  console.log('token?', accessToken)
 
   return (
     <YStack f={1} p="$4" space>

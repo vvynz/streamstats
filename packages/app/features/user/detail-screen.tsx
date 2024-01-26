@@ -58,7 +58,7 @@ export function UserDetailScreen() {
 
   const getFollowedList = async () => {
     await axios
-      .get(`https://api.spotify.com/v1/me/following?type=artist`, {
+      .get(`https://api.spotify.com/v1/me/following`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
@@ -68,6 +68,8 @@ export function UserDetailScreen() {
         console.log(err)
       })
   }
+
+  console.log('token=', accessToken)
 
   useEffect(() => {
     getProfile()
