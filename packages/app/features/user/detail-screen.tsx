@@ -10,7 +10,7 @@ import hooks from 'app/hooks/hooks'
 const { useParam } = createParam<{ id: string }>()
 
 export function UserDetailScreen() {
-  const [accessToken, setAccessToken] = useState('' || localStorage.getItem('access_token'))
+  const [accessToken, setAccessToken] = useState('')
   const [id] = useParam('id')
 
   const link = useLink({
@@ -58,7 +58,7 @@ export function UserDetailScreen() {
 
   const getFollowedList = async () => {
     await axios
-      .get(`https://api.spotify.com/v1/me/following`, {
+      .get(`https://api.spotify.com/v1/me/following?type=artist`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
@@ -72,8 +72,13 @@ export function UserDetailScreen() {
   console.log('token=', accessToken)
 
   useEffect(() => {
-    getProfile()
-    getFollowedList()
+    if (!accessToken) {
+      let token = localStorage.getItem('access_token')
+      setAccessToken(token)
+    } else {
+      getProfile()
+      getFollowedList()
+    }
   }, [accessToken])
 
   return (

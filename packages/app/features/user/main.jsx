@@ -133,11 +133,11 @@ export function Main({ code, clientID, redirectURL }) {
       // console.log('verifier=', codeVerifier)
 
       setVerifier(codeVerifier)
-    } else {
-      getUser()
-      getRecentlyPlayedList()
-      getTopMonthlyList()
     }
+
+    getUser()
+    getRecentlyPlayedList()
+    getTopMonthlyList()
   }, [accessToken])
   console.log('token?', accessToken)
 
