@@ -11,14 +11,14 @@ export function Overview({ recentlyPlayed, topMonthlyList }) {
       <Separator />
       <XStack jc="center" alignContent="baseline" flex={2} flexWrap="wrap" space>
         {/* <YStack ai="center"> */}
-        {recentlyPlayed.slice(0, 6).map((track) => (
+        {recentlyPlayed.map((track) => (
           <SongCard key={track.track.id} song={track.track} />
         ))}
         {/* </YStack> */}
         {/* <YStack ai="center"> */}
-        {recentlyPlayed.slice(6, 11).map((track) => (
+        {/* {recentlyPlayed.slice(6, 11).map((track) => (
           <SongCard key={track.track.id} song={track.track} />
-        ))}
+        ))} */}
         {/* </YStack> */}
       </XStack>
 
@@ -30,7 +30,7 @@ export function Overview({ recentlyPlayed, topMonthlyList }) {
         <YStack ai="center" space>
           <H4>Your Top Songs This Month</H4>
           <XStack jc="center" alignContent="baseline" flex={2} space>
-            {topMonthlyList.slice(0, 5).map((track) => (
+            {topMonthlyList.map((track) => (
               <SongCard key={track.id} song={track} />
             ))}
           </XStack>

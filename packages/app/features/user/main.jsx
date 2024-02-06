@@ -102,7 +102,7 @@ export function Main({ code, clientID, redirectURL }) {
       })
       .then((res) => {
         setError('')
-        setRecentlyPlayed(res.data.items.splice(10))
+        setRecentlyPlayed(res.data.items)
       })
       .catch((err) => {
         setError(err.message)
@@ -111,7 +111,7 @@ export function Main({ code, clientID, redirectURL }) {
 
   const getTopMonthlyList = async () => {
     await axios
-      .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', {
+      .get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5', {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
