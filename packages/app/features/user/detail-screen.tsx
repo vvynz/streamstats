@@ -56,28 +56,19 @@ export function UserDetailScreen() {
       })
   }
 
-  const fetchApi = async (endpoint, method, body) => {
+  const fetchApi = async (endpoint, method) => {
     const res = await fetch(`http://api.spotify.com/${endpoint}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
       method,
-      body: JSON.stringify(body),
+      // body: JSON.stringify(body),
     })
     return await res.json()
   }
 
   const getFollowedList = async () => {
-    await axios
-      .get(`https://api.spotify.com/v1/me/following?type=artist`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    return (await fetchApi('v1/me/following?type=artist', 'GET')).items
   }
 
   console.log('token=', accessToken)
