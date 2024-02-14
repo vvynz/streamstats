@@ -56,6 +56,17 @@ export function UserDetailScreen() {
       })
   }
 
+  const fetchApi = async (endpoint, method, body) => {
+    const res = await fetch(`http://api.spotify.com/${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      method,
+      body: JSON.stringify(body),
+    })
+    return await res.json()
+  }
+
   const getFollowedList = async () => {
     await axios
       .get(`https://api.spotify.com/v1/me/following?type=artist`, {

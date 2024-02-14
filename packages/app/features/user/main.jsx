@@ -127,12 +127,12 @@ export function Main({ code, clientID, redirectURL }) {
     if (!accessToken) {
       setAccessToken(code)
 
-      let codeVerifier
+      // let codeVerifier
 
-      codeVerifier = localStorage.getItem('verifier')
-      // console.log('verifier=', codeVerifier)
+      // codeVerifier = localStorage.getItem('verifier')
+      // // console.log('verifier=', codeVerifier)
 
-      setVerifier(codeVerifier)
+      // setVerifier(codeVerifier)
     }
 
     getUser()
