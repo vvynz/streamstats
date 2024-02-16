@@ -57,7 +57,7 @@ export function UserDetailScreen() {
       })
   }
 
-  const fetchApi = async (endpoint, method) => {
+  const fetchApi = async (endpoint) => {
     // let data
 
     await axios
@@ -74,11 +74,11 @@ export function UserDetailScreen() {
       })
     // body: JSON.stringify(body),
 
-    return data.json()
+    // return data.json()
   }
 
-  const getFollowedList = async () => {
-    return (await fetchApi('v1/me/following?type=artist', 'GET')).items
+  const getFollowedList = () => {
+    return fetchApi('v1/me/following?type=artist')
   }
 
   console.log('token=', accessToken)
