@@ -12,6 +12,7 @@ const { useParam } = createParam<{ id: string }>()
 export function UserDetailScreen() {
   const [accessToken, setAccessToken] = useState('')
   const [id] = useParam('id')
+  const [data, setData] = useState('')
 
   const link = useLink({
     href: '/',
@@ -57,14 +58,23 @@ export function UserDetailScreen() {
   }
 
   const fetchApi = async (endpoint, method) => {
-    const res = await fetch(`http://api.spotify.com/${endpoint}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      method,
-      // body: JSON.stringify(body),
-    })
-    return await res.json()
+    // let data
+
+    await axios
+      .get(`http://api.spotify.com/${endpoint}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        setData(JSON.stringify(res.data))
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    // body: JSON.stringify(body),
+
+    return data.json()
   }
 
   const getFollowedList = async () => {
