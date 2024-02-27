@@ -7,7 +7,7 @@ import { useLink } from 'solito/link'
 
 import hooks from 'app/hooks/hooks'
 
-const { useParam } = createParam<{ id: string }>()
+const { useParam } = createParam()
 
 export function UserDetailScreen() {
   const [accessToken, setAccessToken] = useState('')
@@ -67,6 +67,7 @@ export function UserDetailScreen() {
         },
       })
       .then((res) => {
+        console.log(res)
         setData(JSON.stringify(res.data))
       })
       .catch((err) => {
@@ -77,11 +78,12 @@ export function UserDetailScreen() {
     // return data.json()
   }
 
-  const getFollowedList = () => {
-    return fetchApi('v1/me/following?type=artist')
+  const getFollowedList = async () => {
+    return await fetchApi('v1/me/following?type=artist')
   }
 
   console.log('token=', accessToken)
+  // console.log('data =', data)
 
   useEffect(() => {
     if (!accessToken) {

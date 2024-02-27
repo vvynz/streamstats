@@ -11,7 +11,8 @@ export function LoginPage({ code, setCode }) {
   const redirectURL = 'http://localhost:3000'
   const authEndPoint = 'https://accounts.spotify.com/authorize'
   const resType = 'token'
-  const scope = 'user-read-private user-read-email user-read-recently-played user-top-read'
+  const scope =
+    'user-read-private user-read-email user-read-recently-played user-top-read user-follow-read'
 
   const getToken = () => {
     let urlParams = new URLSearchParams(window.location.hash.replace('#', '?'))
