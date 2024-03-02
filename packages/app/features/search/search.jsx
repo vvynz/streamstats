@@ -7,11 +7,11 @@ export function Search({ artists }) {
     <YStack space>
       <H3>Search</H3>
       <Separator />
-      <YStack display="flex" jc alignContent="center" space>
-        {artists.map((artist) => (
+      <XStack display="flex" justifyContent="center" alignItems="center" space>
+        {artists.slice(0, 9).map((artist) => (
           <ArtistCard key={artist.id} artist={artist} />
         ))}
-      </YStack>
+      </XStack>
     </YStack>
   )
 }
