@@ -25,6 +25,7 @@ import { useLink } from 'solito/link'
 import { UserIdHeader } from './id-header'
 import { Overview } from '../overview/overview'
 import { Search } from '../search/search'
+import { Footer } from '../footer/footer'
 import { useAuth } from './useAuth'
 import hooks from 'app/hooks/hooks'
 import axios from 'axios'
@@ -214,6 +215,7 @@ export function Main({ code, clientID, redirectURL }) {
         </XStack>
       </YStack>
       <Search artists={artists} />
+      <Footer />
 
       {/* <SheetDemo /> */}
     </YStack>
