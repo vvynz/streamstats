@@ -1,8 +1,8 @@
-import { Avatar, Paragraph, XStack } from '@my/ui'
+import { Avatar, Paragraph, XStack, YStack } from '@my/ui'
 
 export function ArtistCard({ artist }) {
   return (
-    <XStack space>
+    <YStack ai="center" gap="$5">
       <Avatar circular size="$8">
         {artist.images.map((img) => (
           <Avatar.Image key={img.id} src={img.url} />
@@ -10,6 +10,6 @@ export function ArtistCard({ artist }) {
         <Avatar.Fallback bc="" />
       </Avatar>
       <Paragraph>{artist.name}</Paragraph>
-    </XStack>
+    </YStack>
   )
 }

@@ -167,8 +167,10 @@ export function Main({ code, clientID, redirectURL }) {
 
       <Overview recentlyPlayed={recentlyPlayed} topMonthlyList={topMonthlyList} />
       <YStack>
-        <XStack jc="center" space>
-          <Label htmlFor="">Search:</Label>
+        <XStack jc="center" gap="$4">
+          <Label htmlFor="" miw={80}>
+            Search:
+          </Label>
           <Select defaultValue="artist">
             <Select.Trigger maxWidth="30%" iconAfter={ChevronDown}>
               <Select.Value placeholder="search..." />
