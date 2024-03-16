@@ -17,6 +17,7 @@ import {
   ZStack,
 } from '@my/ui'
 import { Check, ChevronDown, ChevronUp, Home } from '@tamagui/lucide-icons'
+import { LinearGradient } from 'tamagui/linear-gradient'
 
 import React, { useState, useEffect } from 'react'
 import { useLink } from 'solito/link'
@@ -186,6 +187,13 @@ export function Main({ code, clientID, redirectURL }) {
                 <YStack zIndex={10}>
                   <ChevronUp backgroundColor="white" />
                 </YStack>
+                <LinearGradient
+                  start={[0, 0]}
+                  end={[0, 1]}
+                  fullscreen
+                  colors={['$background', 'transparent']}
+                  borderRadius="$4"
+                />
               </Select.ScrollUpButton>
               <Select.Viewport>
                 <Select.Group>
